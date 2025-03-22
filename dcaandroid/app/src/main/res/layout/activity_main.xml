@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <!-- Input Fields -->
+    <EditText
+        android:id="@+id/etCoin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Coin (e.g., LTC)"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/etBuyPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Buy Price (e.g., 115)"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/etAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Amount (e.g., 0.5)"
+        android:inputType="numberDecimal" />
+
+    <Button
+        android:id="@+id/btnAddPosition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Position" />
+
+    <!-- Profit/Loss Summary -->
+    <TextView
+        android:id="@+id/tvTotalProfitLoss"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total Profit/Loss: $0"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="8dp" />
+
+    <!-- RecyclerView to display positions -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPositions"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="8dp" />
+</LinearLayout>
