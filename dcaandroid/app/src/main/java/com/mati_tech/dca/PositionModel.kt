@@ -8,5 +8,6 @@ data class PositionModel(
     @SerializedName("id") val id: Int = 0,
     @SerializedName("coin") val coin: String,
     @SerializedName("buyPrice")val buyPrice: Double,
-    @SerializedName("amount")val amount: Double
+    @SerializedName("amount")val amount: Double,
+    @SerializedName("currentPrice") var currentPrice: Double = 0.0
 )

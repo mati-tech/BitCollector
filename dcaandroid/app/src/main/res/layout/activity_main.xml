@@ -36,16 +36,26 @@
         android:layout_height="wrap_content"
         android:text="Add Position" />
 
-    <!-- Profit/Loss Summary -->
     <TextView
-        android:id="@+id/tvTotalProfitLoss"
-        android:layout_width="match_parent"
+        android:id="@+id/currentprice"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total Profit/Loss: $0"
+        android:text="current"
         android:textSize="18sp"
+        android:layout_gravity="center"
         android:textStyle="bold"
-        android:gravity="center"
         android:padding="8dp" />
+
+        <!-- Profit/Loss Summary -->
+        <TextView
+            android:id="@+id/tvTotalProfitLoss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Profit/Loss: $0"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:padding="8dp" />
 
     <!-- RecyclerView to display positions -->
     <androidx.recyclerview.widget.RecyclerView
