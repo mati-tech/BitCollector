@@ -1,11 +1,16 @@
-package com.mati_tech.dca
+package com.mati_tech.dca.olddca
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.mati_tech.dca.R
+
+
 
 class PositionAdapter(
     private val onDeleteClick: (PositionModel) -> Unit // ✅ Fix: Add this constructor parameter
@@ -32,6 +37,19 @@ class PositionAdapter(
         notifyItemChanged(position)  // Only update the specific item
     }
 
+    fun findTotalPnl(positions: List<PositionModel>): Double {
+        var totalPnl = 0.0
+
+        // Iterate over each position and calculate the profit/loss
+        for (position in positions) {
+            val totalCost = position.buyPrice * position.amount
+            val profitLoss = (position.currentPrice * position.amount) - totalCost
+            totalPnl += profitLoss // Add the individual P/L to the total
+        }
+        return totalPnl
+    }
+
+
     // To update the positions list
     fun updateData(newList: List<PositionModel>) {
         positions = newList.toMutableList()
@@ -54,6 +72,13 @@ class PositionAdapter(
         fun bind(positionModel: PositionModel, currentPrice: Double) {
             val totalCost = positionModel.buyPrice * positionModel.amount
             val profitLoss = (currentPrice * positionModel.amount) - totalCost
+
+
+            // Change color if the profit/loss is negative
+            if (profitLoss < 0) {
+                tvProfitLoss.setTextColor(Color.parseColor("#FF0000")) // Red color
+            }
+            else tvProfitLoss.setTextColor(Color.parseColor("#8BC34A"))
 
             tvCoin.text = positionModel.coin
             tvBuyPrice.text = "Buy Price: $${positionModel.buyPrice}"

@@ -1,5 +1,6 @@
-package com.mati_tech.dca
+package com.mati_tech.dca.olddca
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.mati_tech.dca.R
+import com.mati_tech.dca.dcanew.dcaCalculator
 
 import retrofit2.Call
 import retrofit2.Callback
@@ -54,9 +57,7 @@ class MainActivity : AppCompatActivity() {
         rvPositions = findViewById(R.id.rvPositions)
         curprice = findViewById(R.id.currentprice)
 
-//        close = findViewById(R.id.closeorder)
 
-        // Initialize RecyclerView
         rvPositions.layoutManager = LinearLayoutManager(this)
         adapter = PositionAdapter{ position -> deletePosition(position) }
         rvPositions.adapter = adapter
@@ -66,6 +67,12 @@ class MainActivity : AppCompatActivity() {
         adapter.updateData(positions)
         startUpdatingPrice() // Add this line in onCreate()
 
+
+        btnAddPosition.setOnLongClickListener{
+            val intent = Intent(this, dcaCalculator::class.java)
+            startActivity(intent)
+            return@setOnLongClickListener true
+        }
 
         // Set up button click listener to add new position
         btnAddPosition.setOnClickListener {
@@ -145,9 +152,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun calculateTotalProfitLoss(): Double {
-        // Placeholder for total profit/loss calculation
-        // You can implement your logic here to calculate the overall profit or loss.
-        var totalProfitLoss = 0.0
+
+        var totalProfitLoss = adapter.findTotalPnl(positions)
+//        tvTotalProfitLoss.setText("P&L: ${String.format("%.2f", tvTotalProfitLoss)}$ ")
+        tvTotalProfitLoss.text = "P&L: ${String.format("%.2f", totalProfitLoss)}$ "
         // For now, we just return 0
         return totalProfitLoss
     }
@@ -157,74 +165,14 @@ class MainActivity : AppCompatActivity() {
         val runnable = object : Runnable {
             override fun run() {
                 fetchCoinPrice()
+                calculateTotalProfitLoss()
                 handler.postDelayed(this, 1000) // Repeat every second
             }
         }
         handler.post(runnable)
     }
 
-//    private fun fetchCoinPrice() {
-//        api.getCoinPrice("litecoin", "usd").enqueue(object :
-//            Callback<Map<String, Map<String, Float>>> {
-//            override fun onResponse(call: Call<Map<String, Map<String, Float>>>, response: Response<Map<String, Map<String, Float>>>) {
-//                if (response.isSuccessful) {
-//                    val price = response.body()?.get("litecoin")?.get("usd")
-//                    curprice.text = "$$price USD"
-//                    Log.d("CoinPriceResponse", "Response: $price")
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<Map<String, Map<String, Float>>>, t: Throwable) {
-//                curprice.text = "Error"
-//                Log.d("CoinPriceResponse", "Response: $")
-//
-//            }
-//        })
-//    }
 
-//    private fun fetchCoinPrice() {
-//        api.getCoinPrice("litecoin", "usd").enqueue(object : Callback<Map<String, Map<String, Float>>> {
-//            override fun onResponse(call: Call<Map<String, Map<String, Float>>>, response: Response<Map<String, Map<String, Float>>>) {
-//                if (response.isSuccessful) {
-//                    // Check if the price is available and update the TextView
-//                    val price = response.body()?.get("litecoin")?.get("usd")
-//                    if (price != null) {
-//                        curprice.text = "$$price USD"
-//                    } else {
-//                        curprice.text = "Price not available"
-//                    }
-//                } else {
-//                    curprice.text = "Error fetching price"
-//                    Log.e("CoinPriceResponse", "Error: ${response.errorBody()}")
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<Map<String, Map<String, Float>>>, t: Throwable) {
-//                curprice.text = "Error"
-//                Log.e("CoinPriceResponse", "Failure: ${t.message}")
-//            }
-//        })
-//    }
-
-//    private fun fetchCoinPrice() {
-//        api.getCoinPrice("LTCUSDT").enqueue(object : Callback<BinanceResponse> {
-//            override fun onResponse(call: Call<BinanceResponse>, response: Response<BinanceResponse>) {
-//                if (response.isSuccessful) {
-//                    val price = response.body()?.price
-//                    curprice.text = "$$price USD"
-//                    Log.d("BinanceResponse", "LTC Price: $$price")
-//                } else {
-//                    curprice.text = "Error fetching price"
-//                    Log.e("BinanceResponse", "Error: ${response.errorBody()?.string()}")
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<BinanceResponse>, t: Throwable) {
-//                curprice.text = "Network Error"
-//                Log.e("BinanceResponse", "Failure: ${t.message}")
-//            }
-//        })
-//    }
 
     private fun fetchCoinPrice() {
         api.getCoinPrice("LTCUSDT").enqueue(object : Callback<Map<String, String>> {

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
+    tools:context=".dcanew.dcaCalculator">
+
+    <!-- Input Fields -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/CoinName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Coin (e.g., LTC)"
+            android:inputType="text" />
+
+        <Spinner
+
+            android:layout_width="wrap_content"
+            android:id="@+id/coin_Name_spinner"
+            android:layout_height="wrap_content">
+
+        </Spinner>
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/BuyPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Buy Price (e.g., 115)"
+        android:inputType="numberDecimal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/AmountinCoin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Amount (e.g., 0.5)"
+            android:layout_weight="1"
+            android:inputType="numberDecimal" />
+        <EditText
+            android:id="@+id/ValueinUSD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Value (e.g., 50 Usd)"
+            android:layout_weight="1"
+            android:inputType="numberDecimal" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnAddPosition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Position" />
+
+
+    <TextView
+            android:id="@+id/currentprice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="BTC: -$, LTC: -$, ETH: -$, SOL: -$"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:background="#00BCD4"
+            android:gravity="center"
+            android:padding="8dp" />
+        <!-- Profit/Loss Summary -->
+
+    <TextView
+        android:id="@+id/TotalProfitLoss"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total Profit/Loss: $0"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:background="@color/green"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:padding="8dp" />
+    <!-- RecyclerView to display positions -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/PositionsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="8dp" />
+
+</LinearLayout>

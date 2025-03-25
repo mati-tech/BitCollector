@@ -1,4 +1,4 @@
-package com.mati_tech.dca
+package com.mati_tech.dca.olddca
 
 import retrofit2.http.GET
 import retrofit2.Call

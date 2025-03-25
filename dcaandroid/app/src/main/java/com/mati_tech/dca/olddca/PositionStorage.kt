@@ -1,11 +1,10 @@
-package com.mati_tech.dca
+package com.mati_tech.dca.olddca
 
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 import java.io.File
-import java.io.FileReader
 
 class PositionStorage(private val context: Context) {
 
