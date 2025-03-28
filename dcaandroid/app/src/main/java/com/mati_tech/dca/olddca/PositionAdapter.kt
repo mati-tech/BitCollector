@@ -6,11 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mati_tech.dca.R
-
-
 
 class PositionAdapter(
     private val onDeleteClick: (PositionModel) -> Unit // ✅ Fix: Add this constructor parameter

@@ -3,6 +3,8 @@ package com.mati_tech.dca.dcanew.repos
 import android.content.Context
 import com.mati_tech.dca.dcanew.db.AppDatabase
 import com.mati_tech.dca.dcanew.db.PositionEntity
+import com.mati_tech.dca.dcanew.remote.CryptoResponse
+import com.mati_tech.dca.dcanew.remote.RetrofitInstance
 
 class PositionRepos(context: Context) {
     private val db = AppDatabase.getDatabase(context)
@@ -16,13 +18,12 @@ class PositionRepos(context: Context) {
     suspend fun clearAllPositions() {
         db.positionDao().deleteAllPositions()
     }
-    suspend fun closePosition(positionId: Int, sellPrice: Double) {
+    suspend fun closePosition(positionId: Int, sellPrice: Double?) {
         db.positionDao().closePosition(positionId, sellPrice, System.currentTimeMillis())
     }
 
-    fun getCurrentPriceFromApi(coin: String): Double {
-
-        return 23.3
+    suspend fun getCurrentPriceFromApi(symbol: String): CryptoResponse {
+        return RetrofitInstance.api.getCoinPrice(symbol)
     }
 
 }

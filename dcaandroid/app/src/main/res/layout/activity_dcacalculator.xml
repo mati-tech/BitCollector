@@ -15,16 +15,25 @@
         android:orientation="horizontal"
         android:layout_height="wrap_content">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Coin Price @"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_height="wrap_content">
+
+        </TextView>
+
         <EditText
-            android:id="@+id/CoinName"
+            android:id="@+id/BuyPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Coin (e.g., LTC)"
-            android:inputType="text" />
+            android:padding="10dp"
+            android:hint="(e.g., 115)"
+            android:inputType="numberDecimal" />
 
         <Spinner
-
             android:layout_width="wrap_content"
             android:id="@+id/coin_Name_spinner"
             android:layout_height="wrap_content">
@@ -33,32 +42,60 @@
 
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/BuyPrice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Buy Price (e.g., 115)"
-        android:inputType="numberDecimal" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Amount @"
+            android:textStyle="bold"
+            android:padding="10dp"
+
+            android:textSize="16sp"
+            android:layout_height="wrap_content">
+
+        </TextView>
         <EditText
             android:id="@+id/AmountinCoin"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Amount (e.g., 0.5)"
-            android:layout_weight="1"
+            android:hint="(e.g., 0.5)"
+            android:padding="10dp"
+
             android:inputType="numberDecimal" />
-        <EditText
-            android:id="@+id/ValueinUSD"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Value (e.g., 50 Usd)"
-            android:layout_weight="1"
-            android:inputType="numberDecimal" />
+
+
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="Value @"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:textSize="16sp"
+        android:layout_height="wrap_content">
+
+    </TextView>
+    <EditText
+        android:id="@+id/ValueinUSD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Value (e.g., 50 Usd)"
+
+        android:padding="10dp"
+        android:inputType="numberDecimal" />
+
+    </LinearLayout>
+
+
 
     <Button
         android:id="@+id/btnAddPosition"
@@ -71,7 +108,7 @@
             android:id="@+id/currentprice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="BTC: -$, LTC: -$, ETH: -$, SOL: -$"
+            android:text="BTC: "
             android:textSize="18sp"
             android:layout_gravity="center"
             android:textStyle="bold"
