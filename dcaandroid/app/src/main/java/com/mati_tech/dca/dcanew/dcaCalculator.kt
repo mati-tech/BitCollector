@@ -51,6 +51,7 @@ class dcaCalculator : AppCompatActivity() {
         // Observe LiveData from ViewModel
 
         viewModel.fetchPositions()
+
         viewModel.cryptoPrices.observe(this, Observer { prices ->
 
             if (prices.isNotEmpty()){
@@ -70,6 +71,12 @@ class dcaCalculator : AppCompatActivity() {
                 // Handle no data or error scenario
                 binding.currentprice.text =  "BTC: 0$ ETH:0$\nLTC:0$ ADA:0$"
             }
+        })
+
+        viewModel.positions.observe(this, Observer{positions ->
+            val totalPnl = adapter.findTotalPnl(positions )
+            binding.TotalProfitLoss.text = "Total PnL : ${String.format("%.2f", totalPnl)}$"
+
         })
 
 
@@ -95,8 +102,10 @@ class dcaCalculator : AppCompatActivity() {
         setupSpinner()
         setupInputListeners()
 
+
         binding.btnAddPosition.setOnClickListener { addPosition() }
     }
+
 
 
 

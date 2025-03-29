@@ -14,6 +14,6 @@ data class PositionEntity(
     val sellPrice: Double? = null,
     val buytimestamp: Long = System.currentTimeMillis(),
     val selltimestamp: Long? = null, // Change from default currentTimeMillis()
-    var currentPrice: Double = 0.0
+//    var currentPrice: Double = 0.0
 )
 

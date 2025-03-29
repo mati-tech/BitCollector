@@ -1,6 +1,7 @@
 package com.mati_tech.dca.dcanew.ui
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,17 +39,7 @@ class PositionAdapter(
         return currentPrices[coin] ?: 0.0
     }
 
-    fun findTotalPnl(positions: List<PositionEntity>): Double {
 
-        var totalPnl = 0.0
-
-        for (position in positions) {
-            val totalCost = position.buyPrice * position.amount
-            val profitLoss = (position.currentPrice * position.amount) - totalCost
-            totalPnl += profitLoss
-        }
-        return totalPnl
-    }
 
     fun updateData(newList: List<PositionEntity>) {
         positions = newList.toMutableList()
@@ -75,7 +66,29 @@ fun updateCurrentPrices(btcPrice: Double, ethPrice: Double, ltcPrice: Double, ad
     // Notify the adapter to refresh the data
     notifyDataSetChanged()
 }
+    fun findTotalPnl(positions: List<PositionEntity>): Double {
+        var totalPnl = 0.0
 
+        // Iterate through each position and calculate its PnL
+        for (position in positions) {
+            val currentPrice = getCurrentPrice(position.coin)
+            if (currentPrice > 0) {
+                val totalCost = position.buyPrice * position.amount
+                val currentValue = currentPrice * position.amount
+                val profitLoss = currentValue - totalCost
+                totalPnl += profitLoss
+                // Add logging to check values
+                Log.d("PositionAdapter", "Calculating PnL for ${position.coin}:")
+                Log.d("PositionAdapter", "Buy Price: ${position.buyPrice}, Amount: ${position.amount}")
+                Log.d("PositionAdapter", "Current Price: $currentPrice")
+                Log.d("PositionAdapter", "Total Cost: $totalCost")
+                Log.d("PositionAdapter", "Profit/Loss: $profitLoss")
+            }
+        }
+        // Log the total PnL value
+        Log.d("PositionAdapter", "Total PnL: $totalPnl")
+        return totalPnl
+    }
     class PositionViewHolder(
         itemView: View,
         private val adapter: PositionAdapter,

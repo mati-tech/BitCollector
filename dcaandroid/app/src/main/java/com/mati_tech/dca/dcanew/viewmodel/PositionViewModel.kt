@@ -11,6 +11,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.*
 class PositionViewModel(private val repository: PositionRepos) : ViewModel() {
     private var job: Job? = null
+
+
     private val _positions = MutableLiveData<List<PositionEntity>>()
     val positions: LiveData<List<PositionEntity>> get() = _positions
 
@@ -19,6 +21,10 @@ class PositionViewModel(private val repository: PositionRepos) : ViewModel() {
 
     fun fetchPositions() {
         viewModelScope.launch {
+            val positionsFromRepo = repository.getAllPositions()
+
+            // Log the fetched positions to verify
+            Log.d("PositionViewModel", "Fetched positions: $positionsFromRepo")
             _positions.postValue(repository.getAllPositions())
         }
     }
