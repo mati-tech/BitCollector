@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
@@ -22,10 +21,6 @@ import com.mati_tech.dca.dcanew.viewmodel.PositionViewModel
 import com.mati_tech.dca.dcanew.repos.PositionRepos
 import com.mati_tech.dca.dcanew.ui.PositionAdapter
 import com.mati_tech.dca.dcanew.viewmodel.PositionViewModelFactory
-import com.mati_tech.dca.olddca.MainActivity
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class dcaCalculator : AppCompatActivity() {
     private lateinit var viewModel: PositionViewModel
@@ -66,6 +61,7 @@ class dcaCalculator : AppCompatActivity() {
                 binding.currentprice.text = "BTC: $btcPrice$ LTC:$ltcPrice$\nETH:$ethPrice\$ ADA:$adaPrice$"
                 adapter.updateCurrentPrices(btcPrice, ethPrice, ltcPrice, adaPrice)
 
+                updatepnl()
             }
             else {
                 // Handle no data or error scenario
@@ -73,11 +69,8 @@ class dcaCalculator : AppCompatActivity() {
             }
         })
 
-        viewModel.positions.observe(this, Observer{positions ->
-            val totalPnl = adapter.findTotalPnl(positions )
-            binding.TotalProfitLoss.text = "Total PnL : ${String.format("%.2f", totalPnl)}$"
 
-        })
+
 
 
 
@@ -106,7 +99,12 @@ class dcaCalculator : AppCompatActivity() {
         binding.btnAddPosition.setOnClickListener { addPosition() }
     }
 
-
+    private fun updatepnl() {
+        viewModel.positions.observe(this, Observer{positions ->
+            val totalPnl = adapter.findTotalPnl(positions )
+            binding.TotalProfitLoss.text = "Total PnL : ${String.format("%.2f", totalPnl)}$"
+        })
+    }
 
 
     private fun showClosePositionDialog(position: PositionEntity) {

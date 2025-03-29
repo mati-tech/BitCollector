@@ -11,9 +11,7 @@ import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.mati_tech.dca.R
 import com.mati_tech.dca.dcanew.db.PositionEntity
-import com.mati_tech.dca.dcanew.remote.CryptoResponse
 import com.mati_tech.dca.dcanew.viewmodel.PositionViewModel
-import com.mati_tech.dca.olddca.PositionModel
 
 class PositionAdapter(
     private val viewModel: PositionViewModel, // Pass ViewModel to Adapter

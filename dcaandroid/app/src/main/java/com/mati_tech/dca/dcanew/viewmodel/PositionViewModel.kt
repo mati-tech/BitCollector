@@ -38,6 +38,7 @@ class PositionViewModel(private val repository: PositionRepos) : ViewModel() {
                     val response = repository.getCurrentPriceFromApi(symbols)
 //                    val priceMap = response.associate { it.symbol to it.price } // Convert list to map
                     _cryptoPrices.postValue(response)
+
                 } catch (e: Exception) {
                     _cryptoPrices.postValue(emptyList())
                 }
