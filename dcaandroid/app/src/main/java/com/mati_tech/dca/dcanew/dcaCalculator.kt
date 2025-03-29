@@ -1,5 +1,6 @@
 package com.mati_tech.dca.dcanew
 
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
@@ -58,7 +59,7 @@ class dcaCalculator : AppCompatActivity() {
                 ltcPrice = pricesList.find { it.symbol.contains("LTC") }?.price?.toDouble() ?: 0.0
                 adaPrice = pricesList.find { it.symbol.contains("ADA") }?.price?.toDouble() ?: 0.0
 
-                binding.currentprice.text = "BTC: $btcPrice$ LTC:$ltcPrice$\nETH:$ethPrice\$ ADA:$adaPrice$"
+                binding.currentprice.text = "BTC: $btcPrice$ ---- LTC: $ltcPrice$\nETH: $ethPrice$ ---- ADA: $adaPrice$"
                 adapter.updateCurrentPrices(btcPrice, ethPrice, ltcPrice, adaPrice)
 
                 updatepnl()
@@ -84,25 +85,49 @@ class dcaCalculator : AppCompatActivity() {
                 showClosePositionDialog(position)
             },
             onDeleteClick = { position ->
-//                viewModel.closePosition(position.id,)
+                showDeletePositionConfirmationBox(position)
+//                val currentPrice = adapter.getCurrentPrice(position.coin) // Get latest price
+//                viewModel.closePosition(position.id, currentPrice) // Pass updated price
             })
 
         recyclerView.adapter = adapter
-        viewModel.positions.observe(this, { positions ->
+        viewModel.positions.observe(this) { positions ->
             adapter.updateData(positions)
-        })
+        }
 
         setupSpinner()
         setupInputListeners()
 
-
         binding.btnAddPosition.setOnClickListener { addPosition() }
+    }
+
+    private fun showDeletePositionConfirmationBox(position: PositionEntity) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Close Position")
+        builder.setMessage("Are you sure of closing position for: ${position.coin}")
+
+        // Set up buttons
+        builder.setPositiveButton("Confirm") { _, _ ->
+            val currentPrice = adapter.getCurrentPrice(position.coin) // Get latest price
+            val pnl = currentPrice-  position.buyPrice
+            viewModel.closePosition(position.id, pnl, currentPrice)
+        }
+        builder.setNegativeButton("Cancel") { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.show()
     }
 
     private fun updatepnl() {
         viewModel.positions.observe(this, Observer{positions ->
             val totalPnl = adapter.findTotalPnl(positions )
             binding.TotalProfitLoss.text = "Total PnL : ${String.format("%.2f", totalPnl)}$"
+            // Change background color based on the value of totalPnl
+            if (totalPnl < 0) {
+                binding.TotalProfitLoss.setBackgroundColor(Color.RED) // Red for negative PnL
+            } else {
+                binding.TotalProfitLoss.setBackgroundColor(Color.GREEN) // Reset for non-negative PnL
+            }
         })
     }
 
@@ -121,7 +146,8 @@ class dcaCalculator : AppCompatActivity() {
         builder.setPositiveButton("Confirm") { _, _ ->
             val enteredPrice = input.text.toString().toDoubleOrNull()
             if (enteredPrice != null) {
-                viewModel.closePosition(position.id, enteredPrice)
+                val pnl = enteredPrice - position.buyPrice
+                viewModel.closePosition(position.id,pnl,  enteredPrice)
             } else {
                 Toast.makeText(this, "Invalid price", Toast.LENGTH_SHORT).show()
             }

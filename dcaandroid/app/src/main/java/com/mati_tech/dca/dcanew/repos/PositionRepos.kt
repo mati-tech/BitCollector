@@ -20,8 +20,9 @@ class PositionRepos(context: Context) {
     suspend fun clearAllPositions() {
         db.positionDao().deleteAllPositions()
     }
-    suspend fun closePosition(positionId: Int, sellPrice: Double?) {
-        db.positionDao().closePosition(positionId, sellPrice, System.currentTimeMillis())
+    suspend fun closePosition(positionId: Int, pnl: Double?, sellPrice: Double?) {
+
+        db.positionDao().closePosition(positionId, sellPrice,pnl,  System.currentTimeMillis())
     }
 
     suspend fun getCurrentPriceFromApi(symbols: List<String>): List<CryptoResponse> {

@@ -65,9 +65,9 @@ class PositionViewModel(private val repository: PositionRepos) : ViewModel() {
         }
     }
 
-    fun closePosition(positionId: Int, sellPrice: Double?) {
+    fun closePosition(positionId: Int,pnl: Double,  sellPrice: Double?) {
         viewModelScope.launch {
-            repository.closePosition(positionId, sellPrice)
+            repository.closePosition(positionId,pnl, sellPrice)
             fetchPositions() // Refresh the list after closing the position
         }
     }

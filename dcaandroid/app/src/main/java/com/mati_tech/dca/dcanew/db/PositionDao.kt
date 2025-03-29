@@ -16,6 +16,6 @@ interface PositionDao {
     suspend fun deleteAllPositions()
     // New method to close a position by updating sellPrice and selltimestamp
 
-    @Query("UPDATE positions SET sellPrice = :sellPrice, selltimestamp = :sellTimestamp WHERE id = :positionId")
-    suspend fun closePosition(positionId: Int, sellPrice: Double?, sellTimestamp: Long = System.currentTimeMillis())
+    @Query("UPDATE positions SET sellPrice = :sellPrice, positionPnl = :pnl, selltimestamp = :sellTimestamp WHERE id = :positionId")
+    suspend fun closePosition(positionId: Int, sellPrice: Double?, pnl: Double?, sellTimestamp: Long = System.currentTimeMillis())
 }

@@ -12,6 +12,7 @@ data class PositionEntity(
     val amount: Double,
     val valueUsd: Double,
     val sellPrice: Double? = null,
+    val positionPnl: Double = 0.0,
     val buytimestamp: Long = System.currentTimeMillis(),
     val selltimestamp: Long? = null, // Change from default currentTimeMillis()
 //    var currentPrice: Double = 0.0
