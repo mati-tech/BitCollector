@@ -3,6 +3,7 @@ package com.mati_tech.dca.dcanew.viewmodel
 import android.util.Log
 import androidx.lifecycle.*
 import com.mati_tech.dca.dcanew.db.PositionEntity
+import com.mati_tech.dca.dcanew.remote.CryptoResponse
 import com.mati_tech.dca.dcanew.repos.PositionRepos
 import com.mati_tech.dca.dcanew.ui.PositionAdapter
 import kotlinx.coroutines.Job
@@ -13,9 +14,8 @@ class PositionViewModel(private val repository: PositionRepos) : ViewModel() {
     private val _positions = MutableLiveData<List<PositionEntity>>()
     val positions: LiveData<List<PositionEntity>> get() = _positions
 
-    private val _cryptoPrice = MutableLiveData<String>()
-    val cryptoPrice: LiveData<String> = _cryptoPrice
-
+    private val _cryptoPrices = MutableLiveData<List<CryptoResponse>>()
+    val cryptoPrices: LiveData<List<CryptoResponse>> = _cryptoPrices
 
     fun fetchPositions() {
         viewModelScope.launch {
@@ -23,43 +23,19 @@ class PositionViewModel(private val repository: PositionRepos) : ViewModel() {
         }
     }
 
-//    fun fetchCurrentPrice(position: PositionEntity, onPriceFetched: (Double) -> Unit) {
-//        viewModelScope.launch {
-//            try {
-//                val price = repository.getCurrentPriceFromApi(position.coin)
-//                onPriceFetched(price)  // Pass the fetched price to the adapter
-//            } catch (e: Exception) {
-//                Log.e("PositionViewModel", "Error fetching price", e)
-//            }
-//        }
-//    }
-
-
-    fun fetchAndUpdatePrices(adapter: PositionAdapter) {
-        viewModelScope.launch {
-            positions.value?.forEachIndexed { index, position ->
-                try {
-                    val newPrice = repository.getCurrentPriceFromApi(position.coin) // API Call
-                    adapter.updateCurrentPrice(index, newPrice.price.toDouble()) // Update UI
-                } catch (e: Exception) {
-                    Log.e("PositionViewModel", "Error fetching price", e)
-                }
-            }
-        }
-    }
-
-    fun startFetchingPrice(symbol: String) {
+    fun startFetchingPrices(symbols: List<String>) {
         job?.cancel() // Cancel previous job if exists
 
-        job = viewModelScope.launch {
+        job = viewModelScope.launch (Dispatchers.IO){
             while (isActive) {  // Keeps running until ViewModel is cleared
                 try {
-                    val response = repository.getCurrentPriceFromApi(symbol)
-                    _cryptoPrice.postValue("Price: ${response.price}")
+                    val response = repository.getCurrentPriceFromApi(symbols)
+//                    val priceMap = response.associate { it.symbol to it.price } // Convert list to map
+                    _cryptoPrices.postValue(response)
                 } catch (e: Exception) {
-                    _cryptoPrice.postValue("Error: ${e.message}")
+                    _cryptoPrices.postValue(emptyList())
                 }
-                delay(1000L)  // Waits 1 second before the next API call
+                delay(500L)  // Waits 0.5 second before the next API call
             }
         }
     }

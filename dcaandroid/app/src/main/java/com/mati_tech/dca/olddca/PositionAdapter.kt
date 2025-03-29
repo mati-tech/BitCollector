@@ -62,7 +62,7 @@ class PositionAdapter(
         private val tvBuyPrice: TextView = itemView.findViewById(R.id.tvBuyPrice)
         private val tvCurrentPrice: TextView = itemView.findViewById(R.id.tvCoinCurrent)
         private val tvAmount: TextView = itemView.findViewById(R.id.tvAmount)
-        private val tvTotalCost: TextView = itemView.findViewById(R.id.tvTotalCost)
+        private val tvTotalCost: TextView = itemView.findViewById(R.id.tvTotalUsd)
         private val tvProfitLoss: TextView = itemView.findViewById(R.id.tvProfitLoss)
         private val btnDelete: ImageView = itemView.findViewById(R.id.closeorder)
 

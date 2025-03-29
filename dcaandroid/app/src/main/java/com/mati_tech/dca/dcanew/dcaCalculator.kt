@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mati_tech.dca.databinding.ActivityDcacalculatorBinding
@@ -21,6 +22,7 @@ import com.mati_tech.dca.dcanew.viewmodel.PositionViewModel
 import com.mati_tech.dca.dcanew.repos.PositionRepos
 import com.mati_tech.dca.dcanew.ui.PositionAdapter
 import com.mati_tech.dca.dcanew.viewmodel.PositionViewModelFactory
+import com.mati_tech.dca.olddca.MainActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,7 +32,13 @@ class dcaCalculator : AppCompatActivity() {
     private lateinit var adapter: PositionAdapter
     private lateinit var binding: ActivityDcacalculatorBinding
     private lateinit var repos: PositionRepos
-    private lateinit var response: CryptoResponse
+
+//
+    private val pricesList = mutableListOf<CryptoResponse>()
+    private var btcPrice : Double = 0.0
+    private var ethPrice : Double = 0.0
+    private var ltcPrice : Double = 0.0
+    private var adaPrice : Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,9 +50,30 @@ class dcaCalculator : AppCompatActivity() {
         viewModel = ViewModelProvider(this, factory).get(PositionViewModel::class.java)
         // Observe LiveData from ViewModel
 
-        viewModel.cryptoPrice.observe(this) { price ->
-            binding.currentprice.text = price
-        }
+        viewModel.fetchPositions()
+        viewModel.cryptoPrices.observe(this, Observer { prices ->
+
+            if (prices.isNotEmpty()){
+                pricesList.clear()
+                pricesList.addAll(prices)
+
+                btcPrice = pricesList.find { it.symbol.contains("BTC") }?.price?.toDouble() ?: 0.0
+                ethPrice = pricesList.find { it.symbol.contains("ETH") }?.price?.toDouble() ?: 0.0
+                ltcPrice = pricesList.find { it.symbol.contains("LTC") }?.price?.toDouble() ?: 0.0
+                adaPrice = pricesList.find { it.symbol.contains("ADA") }?.price?.toDouble() ?: 0.0
+
+                binding.currentprice.text = "BTC: $btcPrice$ LTC:$ltcPrice$\nETH:$ethPrice\$ ADA:$adaPrice$"
+                adapter.updateCurrentPrices(btcPrice, ethPrice, ltcPrice, adaPrice)
+
+            }
+            else {
+                // Handle no data or error scenario
+                binding.currentprice.text =  "BTC: 0$ ETH:0$\nLTC:0$ ADA:0$"
+            }
+        })
+
+
+
 
         val recyclerView = binding.PositionsRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -59,7 +88,6 @@ class dcaCalculator : AppCompatActivity() {
             })
 
         recyclerView.adapter = adapter
-
         viewModel.positions.observe(this, { positions ->
             adapter.updateData(positions)
         })
@@ -68,8 +96,9 @@ class dcaCalculator : AppCompatActivity() {
         setupInputListeners()
 
         binding.btnAddPosition.setOnClickListener { addPosition() }
-
     }
+
+
 
     private fun showClosePositionDialog(position: PositionEntity) {
         val builder = AlertDialog.Builder(this)
@@ -163,7 +192,8 @@ class dcaCalculator : AppCompatActivity() {
     }
     override fun onResume() {
         super.onResume()
-        viewModel.startFetchingPrice("BTCUSDT") // Starts fetching price every second
+        val cryptoList = listOf("BTCUSDT", "ETHUSDT", "LTCUSDT", "ADAUSDT")
+        viewModel.startFetchingPrices(cryptoList) // Starts fetching price every second
     }
 
     override fun onPause() {

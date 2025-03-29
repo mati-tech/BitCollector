@@ -5,6 +5,8 @@ import com.mati_tech.dca.dcanew.db.AppDatabase
 import com.mati_tech.dca.dcanew.db.PositionEntity
 import com.mati_tech.dca.dcanew.remote.CryptoResponse
 import com.mati_tech.dca.dcanew.remote.RetrofitInstance
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 
 class PositionRepos(context: Context) {
     private val db = AppDatabase.getDatabase(context)
@@ -22,8 +24,20 @@ class PositionRepos(context: Context) {
         db.positionDao().closePosition(positionId, sellPrice, System.currentTimeMillis())
     }
 
-    suspend fun getCurrentPriceFromApi(symbol: String): CryptoResponse {
-        return RetrofitInstance.api.getCoinPrice(symbol)
+    suspend fun getCurrentPriceFromApi(symbols: List<String>): List<CryptoResponse> {
+        // Fetch all coins from the API
+        val allCoins = RetrofitInstance.api.getCoinPrices()
+
+        // Filter the response to include only the requested symbols
+        return allCoins.filter { coin ->
+            symbols.contains(coin.symbol)
+        }
     }
+//        val symbolsQuery = symbols.joinToString(",")
+
+
+
+//        return RetrofitInstance.api.getCoinPrices()
+
 
 }

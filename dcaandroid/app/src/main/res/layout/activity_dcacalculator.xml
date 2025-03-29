@@ -108,7 +108,8 @@
             android:id="@+id/currentprice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="BTC: "
+            android:text="BTC: 0$ ETH:0$
+LTC:0$ ADA:0$"
             android:textSize="18sp"
             android:layout_gravity="center"
             android:textStyle="bold"

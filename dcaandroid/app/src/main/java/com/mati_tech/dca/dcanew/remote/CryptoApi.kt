@@ -6,7 +6,7 @@ import retrofit2.http.Query
 
 interface CryptoApi {
     @GET("api/v3/ticker/price")
-    suspend fun getCoinPrice(@Query("symbol") symbol: String): CryptoResponse
+    suspend fun getCoinPrices(): List<CryptoResponse>
 }
 
 data class CryptoResponse(
