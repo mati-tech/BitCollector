@@ -21,8 +21,6 @@ abstract class AppDatabase : RoomDatabase() {
                     .build()
                 instance = newInstance
                 newInstance
-
-
             }
         }
     }

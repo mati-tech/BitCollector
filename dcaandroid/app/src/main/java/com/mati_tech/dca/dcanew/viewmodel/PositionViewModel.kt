@@ -5,13 +5,11 @@ import androidx.lifecycle.*
 import com.mati_tech.dca.dcanew.db.PositionEntity
 import com.mati_tech.dca.dcanew.remote.CryptoResponse
 import com.mati_tech.dca.dcanew.repos.PositionRepos
-import com.mati_tech.dca.dcanew.ui.PositionAdapter
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.*
 class PositionViewModel(private val repository: PositionRepos) : ViewModel() {
     private var job: Job? = null
-
 
     private val _positions = MutableLiveData<List<PositionEntity>>()
     val positions: LiveData<List<PositionEntity>> get() = _positions

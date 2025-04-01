@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:orientation="vertical"
-    tools:context=".dcanew.dcaCalculator">
+    tools:context=".dcanew.ui.dcaCalculator">
 
     <!-- Input Fields -->
 
@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:text="Coin Price @"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:layout_height="wrap_content">
 
         </TextView>
@@ -30,12 +30,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10dp"
+            android:textSize="14sp"
             android:hint="(e.g., 115)"
             android:inputType="numberDecimal" />
 
         <Spinner
             android:layout_width="wrap_content"
             android:id="@+id/coin_Name_spinner"
+
             android:layout_height="wrap_content">
 
         </Spinner>
@@ -54,7 +56,7 @@
             android:textStyle="bold"
             android:padding="10dp"
 
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:layout_height="wrap_content">
 
         </TextView>
@@ -64,7 +66,7 @@
             android:layout_height="wrap_content"
             android:hint="(e.g., 0.5)"
             android:padding="10dp"
-
+            android:textSize="14sp"
             android:inputType="numberDecimal" />
 
 
@@ -80,7 +82,7 @@
         android:text="Value @"
         android:textStyle="bold"
         android:padding="10dp"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:layout_height="wrap_content">
 
     </TextView>
@@ -89,19 +91,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Value (e.g., 50 Usd)"
-
+        android:textSize="14sp"
         android:padding="10dp"
         android:inputType="numberDecimal" />
 
     </LinearLayout>
 
 
-
-    <Button
-        android:id="@+id/btnAddPosition"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add Position" />
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btnAddPosition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_weight="1"
+            android:text="Add Position" />
+        <ImageView
+            android:layout_width="30dp"
+            android:id="@+id/history_button"
+            android:src="@drawable/baseline_history_24"
+            android:layout_gravity="center"
+            android:layout_height="30dp">
+        </ImageView>
+
+    </LinearLayout>
+
+
 
 
     <TextView
@@ -110,7 +128,8 @@
             android:layout_height="wrap_content"
             android:text="BTC: 0$ ETH:0$
 LTC:0$ ADA:0$"
-            android:textSize="18sp"
+
+        android:textSize="12sp"
             android:layout_gravity="center"
             android:textStyle="bold"
             android:background="#00BCD4"
@@ -123,7 +142,7 @@ LTC:0$ ADA:0$"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Total Profit/Loss: $0"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:gravity="center"
         android:background="@color/green"
         android:layout_gravity="center"

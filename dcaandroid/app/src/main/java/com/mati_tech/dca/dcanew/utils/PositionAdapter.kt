@@ -1,4 +1,4 @@
-package com.mati_tech.dca.dcanew.ui
+package com.mati_tech.dca.dcanew.utils
 
 import android.graphics.Color
 import android.util.Log
@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.mati_tech.dca.R
 import com.mati_tech.dca.dcanew.db.PositionEntity
@@ -55,12 +54,17 @@ class PositionAdapter(
 //    }
 // Method to update the current prices for each cryptocurrency
 // Method to update the current prices for each cryptocurrency
-fun updateCurrentPrices(btcPrice: Double, ethPrice: Double, ltcPrice: Double, adaPrice: Double) {
+fun updateCurrentPrices(btcPrice: Double, ethPrice: Double, ltcPrice: Double, adaPrice: Double, dotPrice: Double, avaxPrice: Double, arbPrice: Double, xrpPrice: Double, solPrice: Double  ) {
     // Update the prices in the currentPrices map based on the coin symbols
     currentPrices["BTC"] = btcPrice
     currentPrices["ETH"] = ethPrice
     currentPrices["LTC"] = ltcPrice
     currentPrices["ADA"] = adaPrice
+    currentPrices["DOT"] = dotPrice
+    currentPrices["AVAX"] = avaxPrice
+    currentPrices["ARB"] = arbPrice
+    currentPrices["XRP"] = xrpPrice
+    currentPrices["SOL"] = solPrice
     // Notify the adapter to refresh the data
     notifyDataSetChanged()
 }
@@ -118,7 +122,13 @@ fun updateCurrentPrices(btcPrice: Double, ethPrice: Double, ltcPrice: Double, ad
                 tvCurrentPrice.text = "Loading..."
             }
 
-            val profitLoss = (currentPrice * position.amount) - position.valueUsd
+//            val profitLoss = (currentPrice * position.amount) - position.valueUsd
+            // Calculate P/L correctly
+            val profitLoss = if (currentPrice > 0) {
+                (currentPrice - position.buyPrice) * position.amount
+            } else {
+                0.0
+            }
             tvProfitLoss.text = "P/L: $${String.format("%.2f", profitLoss)}"
 
             // Color change based on profit/loss

@@ -1,5 +1,6 @@
-package com.mati_tech.dca.dcanew
+package com.mati_tech.dca.dcanew.ui
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -20,10 +21,11 @@ import com.mati_tech.dca.dcanew.remote.CryptoResponse
 import com.mati_tech.dca.dcanew.viewmodel.PositionViewModel
 
 import com.mati_tech.dca.dcanew.repos.PositionRepos
-import com.mati_tech.dca.dcanew.ui.PositionAdapter
+import com.mati_tech.dca.dcanew.utils.PositionAdapter
 import com.mati_tech.dca.dcanew.viewmodel.PositionViewModelFactory
 
-class dcaCalculator : AppCompatActivity() {
+
+class DcaCalculator : AppCompatActivity() {
     private lateinit var viewModel: PositionViewModel
     private lateinit var adapter: PositionAdapter
     private lateinit var binding: ActivityDcacalculatorBinding
@@ -35,6 +37,11 @@ class dcaCalculator : AppCompatActivity() {
     private var ethPrice : Double = 0.0
     private var ltcPrice : Double = 0.0
     private var adaPrice : Double = 0.0
+    private var dotPrice : Double = 0.0
+    private var avaxPrice : Double = 0.0
+    private var arbPrice : Double = 0.0
+    private var solPrice : Double = 0.0
+    private var xrpPrice : Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,20 +60,32 @@ class dcaCalculator : AppCompatActivity() {
             if (prices.isNotEmpty()){
                 pricesList.clear()
                 pricesList.addAll(prices)
+                println(pricesList)
 
-                btcPrice = pricesList.find { it.symbol.contains("BTC") }?.price?.toDouble() ?: 0.0
-                ethPrice = pricesList.find { it.symbol.contains("ETH") }?.price?.toDouble() ?: 0.0
-                ltcPrice = pricesList.find { it.symbol.contains("LTC") }?.price?.toDouble() ?: 0.0
-                adaPrice = pricesList.find { it.symbol.contains("ADA") }?.price?.toDouble() ?: 0.0
+                btcPrice = pricesList.find { it.symbol.contains("BTCUSDT") }?.price?.toDouble() ?: 0.0
+                ethPrice = pricesList.find { it.symbol.contains("ETHUSDT") }?.price?.toDouble() ?: 0.0
+                ltcPrice = pricesList.find { it.symbol.contains("LTCUSDT") }?.price?.toDouble() ?: 0.0
+                adaPrice = pricesList.find { it.symbol.contains("ADAUSDT") }?.price?.toDouble() ?: 0.0
+                dotPrice = pricesList.find { it.symbol.contains("DOTUSDT") }?.price?.toDouble() ?: 0.0
+                avaxPrice = pricesList.find { it.symbol.contains("AVAXUSDT")}?.price?.toDouble() ?: 0.0
+                xrpPrice = pricesList.find { it.symbol.contains("XRPUSDT")}?.price?.toDouble() ?: 0.0
+                arbPrice = pricesList.find { it.symbol.contains("ARBUSDT") }?.price?.toDouble() ?: 0.0
+                solPrice = pricesList.find { it.symbol.contains("SOLUSDT") }?.price?.toDouble() ?: 0.0
 
-                binding.currentprice.text = "BTC: $btcPrice$ ---- LTC: $ltcPrice$\nETH: $ethPrice$ ---- ADA: $adaPrice$"
-                adapter.updateCurrentPrices(btcPrice, ethPrice, ltcPrice, adaPrice)
+                binding.currentprice.text =
+                    "BTC: $btcPrice$ ---- LTC: $ltcPrice$\n"+
+                            "ETH: $ethPrice$ ---- ADA: $adaPrice$\n" +
+                            "DOT: $dotPrice$ ---- AVAX: $avaxPrice$\n" +
+                            "XRP: $xrpPrice$ ---- ARB: $arbPrice$\n" +
+                            "SOL: $solPrice\$"
+
+                adapter.updateCurrentPrices(btcPrice, ethPrice, ltcPrice, adaPrice, dotPrice, avaxPrice, arbPrice, xrpPrice, solPrice)
 
                 updatepnl()
             }
             else {
                 // Handle no data or error scenario
-                binding.currentprice.text =  "BTC: 0$ ETH:0$\nLTC:0$ ADA:0$"
+                binding.currentprice.text =  "Network Error!"
             }
         })
 
@@ -99,6 +118,10 @@ class dcaCalculator : AppCompatActivity() {
         setupInputListeners()
 
         binding.btnAddPosition.setOnClickListener { addPosition() }
+        binding.historyButton.setOnClickListener{
+            val intent = Intent(this, PositionHistory::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun showDeletePositionConfirmationBox(position: PositionEntity) {
@@ -109,9 +132,15 @@ class dcaCalculator : AppCompatActivity() {
         // Set up buttons
         builder.setPositiveButton("Confirm") { _, _ ->
             val currentPrice = adapter.getCurrentPrice(position.coin) // Get latest price
-            val pnl = currentPrice-  position.buyPrice
-            viewModel.closePosition(position.id, pnl, currentPrice)
+//            val pnl = currentPrice - position.buyPrice
+            val pnl = (currentPrice * position.amount) - (position.buyPrice * position.amount)
+            // Format values to 2 decimal places
+            val formattedPnl = String.format("%.2f", pnl).toDouble()
+            val formattedCurrentPrice = String.format("%.2f", currentPrice).toDouble()
+//            viewModel.closePosition(position.id, pnl, currentPrice)
+            viewModel.closePosition(position.id, formattedPnl, formattedCurrentPrice)
         }
+
         builder.setNegativeButton("Cancel") { dialog, _ ->
             dialog.dismiss()
         }
@@ -146,8 +175,12 @@ class dcaCalculator : AppCompatActivity() {
         builder.setPositiveButton("Confirm") { _, _ ->
             val enteredPrice = input.text.toString().toDoubleOrNull()
             if (enteredPrice != null) {
-                val pnl = enteredPrice - position.buyPrice
-                viewModel.closePosition(position.id,pnl,  enteredPrice)
+//                val pnl = enteredPrice - position.buyPrice
+                val pnl = (enteredPrice * position.amount) - (position.buyPrice * position.amount)
+                // Format values to 2 decimal places
+                val formattedPnl = String.format("%.2f", pnl).toDouble()
+                val formattedEnteredPrice = String.format("%.2f", enteredPrice).toDouble()
+                viewModel.closePosition(position.id,formattedPnl,  formattedEnteredPrice)
             } else {
                 Toast.makeText(this, "Invalid price", Toast.LENGTH_SHORT).show()
             }
@@ -160,7 +193,7 @@ class dcaCalculator : AppCompatActivity() {
     }
 
     private fun setupSpinner() {
-        val coins = listOf("BTC", "LTC", "ETH", "XRP", "ADA", "DOT")
+        val coins = listOf("BTC", "LTC", "SOL", "ETH", "XRP", "ADA", "DOT", "AVAX", "ARB")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, coins)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.coinNameSpinner.adapter = adapter
@@ -225,7 +258,7 @@ class dcaCalculator : AppCompatActivity() {
     }
     override fun onResume() {
         super.onResume()
-        val cryptoList = listOf("BTCUSDT", "ETHUSDT", "LTCUSDT", "ADAUSDT")
+        val cryptoList = listOf("BTCUSDT", "ETHUSDT", "LTCUSDT", "ADAUSDT", "XRPUSDT", "DOTUSDT", "SOLUSDT", "AVAXUSDT", "ARBUSDT")
         viewModel.startFetchingPrices(cryptoList) // Starts fetching price every second
     }
 

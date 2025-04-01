@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:background="@android:color/white"
+    android:elevation="2dp"
+    android:layout_margin="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tvCoinHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Coin"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tvBuyPriceHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Buy Price: $115" />
+
+        <TextView
+            android:id="@+id/buyDateHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="BuyDate" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tvAmountHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Amount: 0.5 LTC" />
+
+    <TextView
+        android:id="@+id/tvTotalUsdHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Value: $57.50" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/sellPriceHistory"
+            android:layout_height="wrap_content"
+            android:text="sellPrice: $57.50"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            ></TextView>
+
+        <TextView
+            android:id="@+id/sellDateHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="SellDate" />
+
+    </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tvProfitLossHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="P/L: $0.00"
+            android:textSize="16sp"
+            android:layout_weight="1"
+            android:textStyle="bold" />
+
+</LinearLayout>

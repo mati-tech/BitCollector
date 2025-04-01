@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:text="Coin"
             android:layout_weight="1"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
         <TextView
             android:id="@+id/tvCoinCurrent"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:text="Current Price"
             android:layout_weight="1"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
         <ImageView
 

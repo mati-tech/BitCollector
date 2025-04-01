@@ -47,6 +47,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.cronet.embedded)
     implementation (libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.recyclerview)
     kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx) // Coroutines support for Room
 

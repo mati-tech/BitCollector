@@ -16,6 +16,9 @@ class PositionRepos(context: Context) {
     }
 
     suspend fun getAllPositions() = db.positionDao().getAllPositions()
+    suspend fun getAllPositionsHistory() = db.positionDao().getAllPositionsHistory()
+    suspend fun getAllPositionsHistoryPlusPNL() = db.positionDao().getAllPositionsHistoryPlusPNL()
+    suspend fun getAllPositionsHistoryNegativePNL() = db.positionDao().getAllPositionsHistoryNegativePNL()
 
     suspend fun clearAllPositions() {
         db.positionDao().deleteAllPositions()

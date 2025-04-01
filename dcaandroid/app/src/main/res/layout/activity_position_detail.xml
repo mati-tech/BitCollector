@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".PositionDetailsActivity">
+
+    <!-- Summary Section -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        android:padding="16dp"
+        android:marginBottom="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_coin_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bitcoin (BTC)"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tv_total_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Amount: 1.2 BTC"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/tv_avg_buy_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Avg Buy Price: $1200"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/tv_realized_pnl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Realized PNL: $+150"
+                android:textSize="16sp"
+                android:textColor="@color/green"/>
+
+            <TextView
+                android:id="@+id/tv_unrealized_pnl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Unrealized PNL: $-50"
+                android:textSize="16sp"
+                android:textColor="@color/red"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- RecyclerView for Trade History -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_trade_history"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingBottom="12dp"
+        android:clipToPadding="false"/>
+
+    <!-- Trading Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:background="@color/light_gray"
+        android:elevation="2dp">
+
+        <EditText
+            android:id="@+id/et_trade_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Amount"
+            android:inputType="numberDecimal"/>
+
+        <EditText
+            android:id="@+id/et_trade_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Price"
+            android:inputType="numberDecimal"/>
+
+        <Button
+            android:id="@+id/btn_buy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="BUY"
+            android:backgroundTint="@color/green"
+            android:textColor="@android:color/white"/>
+
+        <Button
+            android:id="@+id/btn_sell"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SELL"
+            android:backgroundTint="@color/red"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+
+</LinearLayout>

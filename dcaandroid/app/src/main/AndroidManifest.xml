@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -17,10 +17,16 @@
         android:theme="@style/Theme.Dca"
         tools:targetApi="31">
         <activity
-            android:name=".dcanew.dcaCalculator"
+            android:name=".dcanew.ui.PositionDetail"
+            android:exported="false" />
+        <activity
+            android:name=".dcanew.ui.PositionHistory"
             android:exported="false" />
         <activity
             android:name=".olddca.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".dcanew.ui.DcaCalculator"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
