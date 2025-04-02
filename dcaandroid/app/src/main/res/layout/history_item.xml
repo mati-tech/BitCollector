@@ -21,6 +21,13 @@
             android:layout_weight="1"
             android:textSize="14sp"
             android:textStyle="bold" />
+        <ImageView
+            android:layout_width="20dp"
+            android:id="@+id/edit_position_history"
+            android:src="@drawable/baseline_edit_24"
+            android:layout_height="20dp">
+
+        </ImageView>
 
     </LinearLayout>
 

@@ -44,4 +44,17 @@ class HistoryViewModel(private val repository: PositionRepos) : ViewModel() {
         }
     }
 
+    fun deletePosition(position: PositionEntity){
+        viewModelScope.launch {
+            repository.deletePosition(position)
+            fetchHistory()
+        }
+    }
+
+    fun updatePosition(id: Int, newPrice: Double, newAmount: Double, newTotalUsd: Double) {
+        viewModelScope.launch {
+            repository.updatePosition(id, newPrice, newAmount, newTotalUsd)
+        }
+    }
+
 }

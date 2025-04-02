@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".PositionDetailsActivity">
+    tools:context=".dcanew.ui.PositionDetail">
 
     <!-- Summary Section -->
     <androidx.cardview.widget.CardView
@@ -15,12 +15,12 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="12dp"
         app:cardElevation="4dp"
-        android:padding="16dp"
-        android:marginBottom="12dp">
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:orientation="vertical">
 
             <TextView
@@ -69,17 +69,25 @@
         android:id="@+id/rv_trade_history"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:padding="10dp"
         android:layout_weight="1"
         android:paddingBottom="12dp"
         android:clipToPadding="false"/>
 
     <!-- Trading Section -->
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        android:padding="16dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="12dp"
-        android:background="@color/light_gray"
+        android:background="#A0A6A4"
         android:elevation="2dp">
 
         <EditText
@@ -112,5 +120,6 @@
             android:backgroundTint="@color/red"
             android:textColor="@android:color/white"/>
     </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

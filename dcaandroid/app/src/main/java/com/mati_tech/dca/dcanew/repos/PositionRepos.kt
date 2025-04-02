@@ -28,6 +28,14 @@ class PositionRepos(context: Context) {
         db.positionDao().closePosition(positionId, sellPrice,pnl,  System.currentTimeMillis())
     }
 
+    suspend fun deletePosition(position:PositionEntity){
+        db.positionDao().deletePosition(position)
+    }
+
+
+
+
+
     suspend fun getCurrentPriceFromApi(symbols: List<String>): List<CryptoResponse> {
         // Fetch all coins from the API
         val allCoins = RetrofitInstance.api.getCoinPrices()
@@ -36,6 +44,10 @@ class PositionRepos(context: Context) {
         return allCoins.filter { coin ->
             symbols.contains(coin.symbol)
         }
+    }
+
+    suspend fun updatePosition(id: Int, newPrice: Double, newAmount: Double, newTotalUsd: Double) {
+        db.positionDao().updatePosition(id, newPrice, newAmount, newTotalUsd)
     }
 //        val symbolsQuery = symbols.joinToString(",")
 

@@ -1,12 +1,17 @@
 package com.mati_tech.dca.dcanew.ui
 
 import android.os.Bundle
+import android.text.InputType
+import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mati_tech.dca.databinding.ActivityPositionHistoryBinding
+import com.mati_tech.dca.dcanew.db.PositionEntity
 import com.mati_tech.dca.dcanew.repos.PositionRepos
 import com.mati_tech.dca.dcanew.utils.HistoryAdapter
 import com.mati_tech.dca.dcanew.viewmodel.HistoryViewModel
@@ -28,7 +33,10 @@ class PositionHistory : AppCompatActivity() {
         val factory = HistoryViewModelFactory(repository)
         viewModel = ViewModelProvider(this, factory).get(HistoryViewModel::class.java)
 
-        adapter = HistoryAdapter(viewModel)
+        adapter = HistoryAdapter(viewModel){position->
+//            showEditPositionDialog(position)
+
+        }
         binding.historyRecycler.layoutManager = LinearLayoutManager(this)
         binding.historyRecycler.adapter = adapter
 
@@ -55,5 +63,37 @@ class PositionHistory : AppCompatActivity() {
         // Fetch historical data
         viewModel.fetchHistory()
     }
+
+//    private fun showClosePositionDialog(position: PositionEntity) {
+//        val builder = AlertDialog.Builder(this)
+//
+//        builder.setTitle("Close Position")
+//        builder.setMessage("Enter the closing price for ${position.coin}")
+//
+//        // Create an EditText for user input
+//        val input = EditText(this)
+//        input.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
+//        builder.setView(input)
+//
+//        // Set up buttons
+//        builder.setPositiveButton("Confirm") { _, _ ->
+//            val enteredPrice = input.text.toString().toDoubleOrNull()
+//            if (enteredPrice != null) {
+////                val pnl = enteredPrice - position.buyPrice
+//                val pnl = (enteredPrice * position.amount) - (position.buyPrice * position.amount)
+//                // Format values to 2 decimal places
+//                val formattedPnl = String.format("%.2f", pnl).toDouble()
+//                val formattedEnteredPrice = String.format("%.2f", enteredPrice).toDouble()
+//                viewModel.closePosition(position.id,formattedPnl,  formattedEnteredPrice)
+//            } else {
+//                Toast.makeText(this, "Invalid price", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+//        builder.setNegativeButton("Cancel") { dialog, _ ->
+//            dialog.dismiss()
+//        }
+//
+//        builder.show()
+//    }
 
 }
