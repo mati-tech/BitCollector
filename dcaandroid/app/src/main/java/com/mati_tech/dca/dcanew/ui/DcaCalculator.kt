@@ -113,6 +113,12 @@ class DcaCalculator : AppCompatActivity() {
         viewModel.positions.observe(this) { positions ->
             adapter.updateData(positions)
         }
+        // Observe total sum
+        viewModel.totalInvested.observe(this) { total ->
+            binding.TotalMoneyUsd.text = "Total $ in Positions: $${String.format("%.2f", total)}"
+        }
+        // Fetch total initially and refresh when needed
+        viewModel.fetchTotalInvested()
 
         setupSpinner()
         setupInputListeners()

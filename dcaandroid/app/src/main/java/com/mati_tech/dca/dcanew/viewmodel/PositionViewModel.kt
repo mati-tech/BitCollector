@@ -17,6 +17,8 @@ class PositionViewModel(private val repository: PositionRepos) : ViewModel() {
     private val _cryptoPrices = MutableLiveData<List<CryptoResponse>>()
     val cryptoPrices: LiveData<List<CryptoResponse>> = _cryptoPrices
 
+    private val _totalInvested = MutableLiveData<Double>()
+    val totalInvested: LiveData<Double> = _totalInvested
     fun fetchPositions() {
         viewModelScope.launch {
             val positionsFromRepo = repository.getAllPositions()
@@ -27,6 +29,12 @@ class PositionViewModel(private val repository: PositionRepos) : ViewModel() {
         }
     }
 
+    fun fetchTotalInvested() {
+        viewModelScope.launch {
+            _totalInvested.postValue(repository.getTotalinPositions() ?: 0.0)
+        }
+
+    }
     fun startFetchingPrices(symbols: List<String>) {
         job?.cancel() // Cancel previous job if exists
 
@@ -53,6 +61,7 @@ class PositionViewModel(private val repository: PositionRepos) : ViewModel() {
         viewModelScope.launch {
             repository.addPosition(position)
             fetchPositions()
+            fetchTotalInvested()
         }
     }
 
@@ -67,6 +76,7 @@ class PositionViewModel(private val repository: PositionRepos) : ViewModel() {
         viewModelScope.launch {
             repository.closePosition(positionId,pnl, sellPrice)
             fetchPositions() // Refresh the list after closing the position
+            fetchTotalInvested()
         }
     }
 }

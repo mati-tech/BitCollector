@@ -43,4 +43,6 @@ interface PositionDao {
         newAmount: Double,
         newTotalUsd: Double
     )
+    @Query("SELECT SUM(valueUsd) FROM positions where sellPrice IS NULL")
+    suspend fun getTotalInPositions(): Double?
 }

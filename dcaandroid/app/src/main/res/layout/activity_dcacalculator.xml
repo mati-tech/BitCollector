@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
     android:orientation="vertical"
-    tools:context=".dcanew.ui.dcaCalculator">
+    tools:context=".dcanew.ui.DcaCalculator">
 
-    <!-- Input Fields -->
+    //
+    
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -96,6 +99,7 @@
         android:inputType="numberDecimal" />
 
     </LinearLayout>
+    //
 
 
     <LinearLayout
@@ -137,17 +141,37 @@ LTC:0$ ADA:0$"
             android:padding="8dp" />
         <!-- Profit/Loss Summary -->
 
-    <TextView
-        android:id="@+id/TotalProfitLoss"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Total Profit/Loss: $0"
-        android:textSize="14sp"
-        android:gravity="center"
-        android:background="@color/green"
-        android:layout_gravity="center"
-        android:textStyle="bold"
-        android:padding="8dp" />
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/TotalProfitLoss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Profit/Loss: $0"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:background="@color/green"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:padding="8dp" />
+        <TextView
+            android:id="@+id/TotalMoneyUsd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total $ in Positions: $0"
+            android:textSize="14sp"
+            android:gravity="end"
+            android:layout_weight="1"
+            android:background="#A9D4DA"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:padding="8dp" />
+
+    </LinearLayout>
+
     <!-- RecyclerView to display positions -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/PositionsRecyclerView"
