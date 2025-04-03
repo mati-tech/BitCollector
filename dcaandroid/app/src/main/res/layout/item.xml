@@ -1,89 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp"
-    android:background="@android:color/white"
-    android:elevation="2dp"
     android:layout_margin="10dp"
-    >
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/tvCoin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Coin"
-            android:layout_weight="1"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-        <TextView
-            android:id="@+id/tvCoinCurrent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Current Price"
-            android:layout_weight="1"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-        <ImageView
-
-            android:id="@+id/closeorder"
-            android:layout_width="25dp"
-            android:src="@drawable/baseline_cancel_24"
-            android:layout_height="25dp">
-
-        </ImageView>
-
-    </LinearLayout>
-
-
-    <TextView
-        android:id="@+id/tvBuyPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Buy Price: $115" />
-
-    <TextView
-        android:id="@+id/tvAmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Amount: 0.5 LTC" />
-
-    <TextView
-        android:id="@+id/tvTotalUsd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Value: $57.50" />
+    android:elevation="4dp"
+    android:background="@color/main3"
+    app:cardCornerRadius="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:background="@android:color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tvCoin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Coin"
+                android:textColor="@color/main3"
+                android:background="@color/main"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvCoinCurrent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Current Price"
+                android:layout_weight="1"
+
+                android:textSize="14sp"
+                android:textColor="@color/main"
+                android:background="@color/main3"
+                android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/closeorder"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/baseline_cancel_24" />
+        </LinearLayout>
+
         <TextView
-            android:id="@+id/tvProfitLoss"
+            android:id="@+id/tvBuyPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="P/L: $0.00"
-            android:textSize="16sp"
-            android:layout_weight="1"
-            android:textStyle="bold" />
+            android:text="Buy Price: $115" />
+
         <TextView
+            android:id="@+id/tvAmount"
             android:layout_width="wrap_content"
-            android:id="@+id/closePositionat"
             android:layout_height="wrap_content"
-            android:text="Close@"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            ></TextView>
+            android:text="Amount: 0.5 LTC" />
 
+        <TextView
+            android:id="@+id/tvTotalUsd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Value: $57.50" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tvProfitLoss"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="P/L: $0.00"
+                android:textSize="16sp"
+                android:layout_weight="1"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/closePositionat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Close@"
+                android:textColor="@color/main3"
+                android:background="@color/main"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</androidx.cardview.widget.CardView>

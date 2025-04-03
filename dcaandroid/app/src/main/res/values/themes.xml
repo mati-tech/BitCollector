@@ -2,7 +2,9 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Dca" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+         <item name="colorPrimary">@color/main</item>
+         <item name="colorOnPrimary">@color/main2</item>
+         <item name="colorPrimaryVariant">@color/main3</item>
     </style>
 
     <style name="Theme.Dca" parent="Base.Theme.Dca" />
