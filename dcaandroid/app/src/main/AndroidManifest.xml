@@ -17,6 +17,12 @@
         android:theme="@style/Theme.Dca"
         tools:targetApi="31">
         <activity
+            android:name=".dcanew.ui.UserProfile"
+            android:exported="false" />
+        <activity
+            android:name=".dcanew.ui.OngoingPositions"
+            android:exported="false" />
+        <activity
             android:name=".dcanew.ui.PositionDetail"
             android:exported="false" />
         <activity

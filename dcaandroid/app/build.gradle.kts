@@ -51,11 +51,11 @@ dependencies {
     kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx) // Coroutines support for Room
 
+    implementation (libs.material.v190)
     implementation (libs.gson)
 
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

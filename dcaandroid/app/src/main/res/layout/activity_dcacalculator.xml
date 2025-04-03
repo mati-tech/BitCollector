@@ -8,125 +8,50 @@
     android:orientation="vertical"
     tools:context=".dcanew.ui.DcaCalculator">
 
-    <!-- CardView containing the inputs for position -->
     <androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="5dp"
         app:cardCornerRadius="10dp"
-        android:layout_marginBottom="8dp">
+        android:padding="10dp"
+        android:layout_marginBottom="10dp">
 
-        <!-- Inside CardView: LinearLayout for Inputs -->
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:padding="10dp">
 
-            <!-- Coin Price Input Section -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:text="Coin Price @"
-                    android:textStyle="bold"
-                    android:textSize="14sp"
-                    android:layout_height="wrap_content"/>
-
-                <EditText
-                    android:id="@+id/BuyPrice"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="10dp"
-                    android:textSize="14sp"
-                    android:hint="(e.g., 115)"
-                    android:inputType="numberDecimal" />
-
-                <Spinner
-                    android:layout_width="wrap_content"
-                    android:id="@+id/coin_Name_spinner"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <!-- Amount in Coin Input Section -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <!-- Centered Title -->
+            <TextView
+                android:id="@+id/title_text"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:text="DCA Calculator"
+                android:textColor="@color/main"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_centerInParent="true"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:text="Amount @"
-                    android:textStyle="bold"
-                    android:padding="10dp"
-                    android:textSize="14sp"
-                    android:layout_height="wrap_content"/>
-
-                <EditText
-                    android:id="@+id/AmountinCoin"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="(e.g., 0.5)"
-                    android:padding="10dp"
-                    android:textSize="14sp"
-                    android:inputType="numberDecimal" />
-            </LinearLayout>
-
-            <!-- Value in USD Input Section -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:text="Value @"
-                    android:textStyle="bold"
-                    android:padding="10dp"
-                    android:textSize="14sp"
-                    android:layout_height="wrap_content"/>
-
-                <EditText
-                    android:id="@+id/ValueinUSD"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Value (e.g., 50 USD)"
-                    android:textSize="14sp"
-                    android:padding="10dp"
-                    android:inputType="numberDecimal" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/btnAddPosition"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Add Position"
-
-                android:textColor="@color/main3"
-                android:layout_weight="1"
-                android:textSize="14sp"
-                />
+            <!-- User Icon on Right (Middle) -->
             <ImageView
-                android:id="@+id/history_button"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/baseline_history_24"
-                android:layout_gravity="center"
-                android:layout_marginStart="8dp"/>
-            </LinearLayout>
-        </LinearLayout>
+                android:id="@+id/profile_icon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/baseline_person_24"
+                android:onClick="GoToProfile"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
+
+
+
+
+    <!-- CardView containing the inputs for position -->
+
 
     <!-- Button and History Button Section -->
     <androidx.cardview.widget.CardView
@@ -204,7 +129,87 @@
                         android:textStyle="bold"
                         android:padding="8dp"/>
                 </LinearLayout>
+
             </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="5dp"
+                app:cardCornerRadius="8dp"
+                android:layout_marginBottom="8dp">
+
+                <!-- Profit/Loss Summary Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/TotalFreeMoney"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="Available Amount: "
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:background="@color/main2"
+                        android:textStyle="bold"
+                        android:padding="8dp"/>
+
+                    <TextView
+                        android:id="@+id/TotalCurrentMoneyUsd"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="Current Balance: $0"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:background="#EDA58E"
+                        android:textStyle="bold"
+                        android:padding="8dp"/>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="5dp"
+                app:cardCornerRadius="8dp"
+                android:layout_marginBottom="8dp">
+
+                <!-- Profit/Loss Summary Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/TotalMoneyInCrypto"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="Total Money in Crypto: "
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:background="@color/main3"
+                        android:textStyle="bold"
+                        android:padding="8dp"/>
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+                <Button
+                    android:id="@+id/btnCurrentPositions"
+                    android:layout_width="match_parent"
+                    android:onClick="GoToOnGoingPositions"
+                    android:layout_height="wrap_content"
+                    android:text="Open Positions"
+                    android:textColor="@color/main3"
+                    android:layout_weight="1"
+                    android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -212,20 +217,124 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:elevation="5dp"
-        android:layout_weight="1"
         app:cardCornerRadius="10dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp">
-    <!-- RecyclerView to Display Positions -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/PositionsRecyclerView"
+        android:layout_marginTop="8dp">
+
+        <!-- Inside CardView: LinearLayout for Inputs -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:padding="4dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingTop="8dp" />
+            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <!-- Coin Price Input Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Coin Price @"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:padding="10dp"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    android:id="@+id/BuyPrice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:textSize="14sp"
+                    android:hint="(e.g., 115)"
+                    android:inputType="numberDecimal" />
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:id="@+id/coin_Name_spinner"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!-- Amount in Coin Input Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Amount     @"
+                    android:textStyle="bold"
+                    android:padding="10dp"
+                    android:textSize="14sp"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    android:id="@+id/AmountinCoin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="(e.g., 0.5)"
+                    android:padding="10dp"
+                    android:textSize="14sp"
+                    android:inputType="numberDecimal" />
+            </LinearLayout>
+
+            <!-- Value in USD Input Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Value         @ "
+                    android:textStyle="bold"
+                    android:padding="10dp"
+                    android:textSize="14sp"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    android:id="@+id/ValueinUSD"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Value (e.g., 50 USD)"
+                    android:textSize="14sp"
+                    android:padding="10dp"
+                    android:inputType="numberDecimal" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btnAddPosition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Add Position"
+
+                    android:textColor="@color/main3"
+                    android:layout_weight="1"
+                    android:textSize="14sp"
+                    />
+                <ImageView
+                    android:id="@+id/history_button"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/baseline_history_24"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
+
+
 
 </LinearLayout>

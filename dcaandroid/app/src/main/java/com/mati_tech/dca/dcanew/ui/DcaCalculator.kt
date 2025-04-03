@@ -1,11 +1,15 @@
 package com.mati_tech.dca.dcanew.ui
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
+import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
@@ -28,8 +32,11 @@ import com.mati_tech.dca.dcanew.viewmodel.PositionViewModelFactory
 class DcaCalculator : AppCompatActivity() {
     private lateinit var viewModel: PositionViewModel
     private lateinit var adapter: PositionAdapter
+    private lateinit var sharedPreferences: SharedPreferences
+
     private lateinit var binding: ActivityDcacalculatorBinding
     private lateinit var repos: PositionRepos
+
 
 //
     private val pricesList = mutableListOf<CryptoResponse>()
@@ -47,6 +54,14 @@ class DcaCalculator : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDcacalculatorBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+
+        var balance = sharedPreferences.getFloat("balance", 0.0f)
+        val formattedBalance = String.format("%.2f", balance)
+        binding.TotalMoneyInCrypto.text = "Total Balance: $formattedBalance$"
+
 
         repos = PositionRepos(applicationContext)
         val factory = PositionViewModelFactory(repos)
@@ -82,6 +97,7 @@ class DcaCalculator : AppCompatActivity() {
                 adapter.updateCurrentPrices(btcPrice, ethPrice, ltcPrice, adaPrice, dotPrice, avaxPrice, arbPrice, xrpPrice, solPrice)
 
                 updatepnl()
+                updateCurrentValue()
             }
             else {
                 // Handle no data or error scenario
@@ -90,13 +106,8 @@ class DcaCalculator : AppCompatActivity() {
         })
 
 
-
-
-
-
-
-        val recyclerView = binding.PositionsRecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(this)
+//        val recyclerView = binding.
+//        recyclerView.layoutManager = LinearLayoutManager(this)
 
         adapter = PositionAdapter(viewModel,
             onCloseatClick = { position ->
@@ -109,23 +120,28 @@ class DcaCalculator : AppCompatActivity() {
 //                viewModel.closePosition(position.id, currentPrice) // Pass updated price
             })
 
-        recyclerView.adapter = adapter
-        viewModel.positions.observe(this) { positions ->
-            adapter.updateData(positions)
-        }
+//        recyclerView.adapter = adapter
+//        viewModel.positions.observe(this) { positions ->
+//            adapter.updateData(positions)
+//        }
         // Observe total sum
         viewModel.totalInvested.observe(this) { total ->
-            binding.TotalMoneyUsd.text = "Total$: $${String.format("%.2f", total)}"
+            val balance = sharedPreferences.getFloat("balance", 0.0f)
+            binding.TotalMoneyUsd.text = "In Positions: ${String.format("%.2f", total)}$"
+            val availableMoney = balance - total
+            binding.TotalFreeMoney.text = "Available balance:\n ${String.format("%.2f", availableMoney)}$"
         }
         // Fetch total initially and refresh when needed
         viewModel.fetchTotalInvested()
 
         setupSpinner()
         setupInputListeners()
-
+        updateCurrentValue()
         binding.btnAddPosition.setOnClickListener { addPosition() }
+
         binding.historyButton.setOnClickListener{
             val intent = Intent(this, PositionHistory::class.java)
+
             startActivity(intent)
         }
     }
@@ -155,6 +171,7 @@ class DcaCalculator : AppCompatActivity() {
 
     private fun updatepnl() {
         viewModel.positions.observe(this, Observer{positions ->
+
             val totalPnl = adapter.findTotalPnl(positions )
             binding.TotalProfitLoss.text = "Total PnL : ${String.format("%.2f", totalPnl)}$"
             // Change background color based on the value of totalPnl
@@ -261,17 +278,59 @@ class DcaCalculator : AppCompatActivity() {
         val position =
             PositionEntity(coin = coin, buyPrice = buyPrice, amount = amount, valueUsd = valueinusd)
         viewModel.addPosition(position)
+        viewModel.fetchTotalInvested()
     }
     override fun onResume() {
         super.onResume()
         val cryptoList = listOf("BTCUSDT", "ETHUSDT", "LTCUSDT", "ADAUSDT", "XRPUSDT", "DOTUSDT", "SOLUSDT", "AVAXUSDT", "ARBUSDT")
         viewModel.startFetchingPrices(cryptoList) // Starts fetching price every second
+
+        viewModel.fetchTotalInvested()
+
+        var balance = sharedPreferences.getFloat("balance", 0.0f)
+        val formattedBalance = String.format("%.2f", balance)
+        binding.TotalMoneyInCrypto.text = "Total Balance: $formattedBalance$"
+        updateCurrentValue()
+
     }
 
     override fun onPause() {
         super.onPause()
         viewModel.stopFetchingPrice() // Stops fetching when app is in background
     }
+
+    fun GoToOnGoingPositions(view: View) {
+        binding.btnCurrentPositions.setOnClickListener {
+            val intent = Intent(it.context, OngoingPositions::class.java)
+            it.context.startActivity(intent)
+            true // Return true to indicate the long press was handled
+        }
+
+    }
+
+    fun GoToProfile(view: View) {
+        binding.profileIcon.setOnClickListener {
+        val intent = Intent(it.context, UserProfile::class.java)
+        it.context.startActivity(intent)
+        true // Return true to indicate the long press was handled
+    }}
+    private fun updateCurrentValue() {
+
+        viewModel.totalInvested.observe(this) { totalInvested ->
+            viewModel.positions.observe(this) { positions ->
+                val totalPnl = adapter.findTotalPnl(positions)  // Get total PnL
+                val currentValue = totalInvested + totalPnl  // Calculate Current Value
+
+// Log values to check correctness
+                Log.d("INVEST_DEBUG", "Total Invested: $totalInvested")
+                Log.d("PNL_DEBUG", "Total PnL: $totalPnl")
+                Log.d("CURRENT_VALUE_DEBUG", "Calculated Current Value: $currentValue")
+                // Update UI
+                binding.TotalCurrentMoneyUsd.text = "Current Balance\nif close all now: ${String.format("%.2f", currentValue)}$"
+            }
+        }
+    }
+
 }
 
 //    private fun calculateTotalProfitLoss(): Double {
