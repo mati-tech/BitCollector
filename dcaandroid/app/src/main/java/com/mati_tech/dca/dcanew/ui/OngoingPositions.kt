@@ -1,5 +1,6 @@
 package com.mati_tech.dca.dcanew.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.widget.EditText
@@ -37,6 +38,7 @@ class OngoingPositions : AppCompatActivity() {
     private var arbPrice : Double = 0.0
     private var solPrice : Double = 0.0
     private var xrpPrice : Double = 0.0
+    private var aptPrice : Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +68,7 @@ class OngoingPositions : AppCompatActivity() {
                 xrpPrice = pricesList.find { it.symbol.contains("XRPUSDT")}?.price?.toDouble() ?: 0.0
                 arbPrice = pricesList.find { it.symbol.contains("ARBUSDT") }?.price?.toDouble() ?: 0.0
                 solPrice = pricesList.find { it.symbol.contains("SOLUSDT") }?.price?.toDouble() ?: 0.0
+                aptPrice = pricesList.find { it.symbol.contains("APTUSDT") }?.price?.toDouble() ?: 0.0
 
 //                binding.currentprice.text =
 //                    "BTC: $btcPrice$ ---- LTC: $ltcPrice$\n"+
@@ -74,7 +77,7 @@ class OngoingPositions : AppCompatActivity() {
 //                            "XRP: $xrpPrice$ ---- ARB: $arbPrice$\n" +
 //                            "SOL: $solPrice\$"
 
-                adapter.updateCurrentPrices(btcPrice, ethPrice, ltcPrice, adaPrice, dotPrice, avaxPrice, arbPrice, xrpPrice, solPrice)
+                adapter.updateCurrentPrices(btcPrice, ethPrice, ltcPrice, adaPrice, dotPrice, avaxPrice, arbPrice, xrpPrice, solPrice, aptPrice)
 
 
 //                updatepnl()
@@ -99,7 +102,21 @@ class OngoingPositions : AppCompatActivity() {
                 showDeletePositionConfirmationBox(position)
 //                val currentPrice = adapter.getCurrentPrice(position.coin) // Get latest price
 //                viewModel.closePosition(position.id, currentPrice) // Pass updated price
-            })
+            },
+            onItemClick = { position ->
+                // Handle item click
+                Toast.makeText(this, "Clicked on: ${position.coin}", Toast.LENGTH_SHORT).show()
+                val intent = Intent ( this, PositionDetail::class.java)
+                intent.putExtra("coin_name", position.coin)
+                intent.putExtra("total_amount", position.amount.toString())
+                intent.putExtra("avg_buy_price", position.buyPrice.toString())
+//                intent.putExtra("realized_pnl", position.realizedPnL.toString())
+//                intent.putExtra("unrealized_pnl", position.unrealizedPnL.toString())
+                startActivity(intent)
+                // Or navigate to details screen
+            }
+
+        )
         recyclerView.adapter = adapter
         viewModel.positions.observe(this) { positions ->
             adapter.updateData(positions)
@@ -161,7 +178,7 @@ class OngoingPositions : AppCompatActivity() {
     }
     override fun onResume() {
         super.onResume()
-        val cryptoList = listOf("BTCUSDT", "ETHUSDT", "LTCUSDT", "ADAUSDT", "XRPUSDT", "DOTUSDT", "SOLUSDT", "AVAXUSDT", "ARBUSDT")
+        val cryptoList = listOf("BTCUSDT", "ETHUSDT", "LTCUSDT", "ADAUSDT", "XRPUSDT", "DOTUSDT", "SOLUSDT", "AVAXUSDT", "ARBUSDT", "APTUSDT")
         viewModel.startFetchingPrices(cryptoList) // Starts fetching price every second
     }
 

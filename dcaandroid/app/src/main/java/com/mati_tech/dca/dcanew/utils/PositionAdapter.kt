@@ -15,7 +15,8 @@ import com.mati_tech.dca.dcanew.viewmodel.PositionViewModel
 class PositionAdapter(
     private val viewModel: PositionViewModel, // Pass ViewModel to Adapter
     private val onCloseatClick: (PositionEntity) -> Unit,
-    private val onDeleteClick: (PositionEntity) -> Unit
+    private val onDeleteClick: (PositionEntity) -> Unit,
+    private val onItemClick: (PositionEntity) -> Unit
 ) : RecyclerView.Adapter<PositionAdapter.PositionViewHolder>() {
 
     private var positions = mutableListOf<PositionEntity>()
@@ -23,7 +24,7 @@ class PositionAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PositionViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item, parent, false)
-        return PositionViewHolder(view,this,  onDeleteClick, onCloseatClick, viewModel)
+        return PositionViewHolder(view,this,  onDeleteClick, onCloseatClick,onItemClick,  viewModel)
     }
 
     override fun onBindViewHolder(holder: PositionViewHolder, position: Int) {
@@ -54,7 +55,7 @@ class PositionAdapter(
 //    }
 // Method to update the current prices for each cryptocurrency
 // Method to update the current prices for each cryptocurrency
-fun updateCurrentPrices(btcPrice: Double, ethPrice: Double, ltcPrice: Double, adaPrice: Double, dotPrice: Double, avaxPrice: Double, arbPrice: Double, xrpPrice: Double, solPrice: Double  ) {
+fun updateCurrentPrices(btcPrice: Double, ethPrice: Double, ltcPrice: Double, adaPrice: Double, dotPrice: Double, avaxPrice: Double, arbPrice: Double, xrpPrice: Double, solPrice: Double , aptPrice: Double ) {
     // Update the prices in the currentPrices map based on the coin symbols
     currentPrices["BTC"] = btcPrice
     currentPrices["ETH"] = ethPrice
@@ -65,6 +66,7 @@ fun updateCurrentPrices(btcPrice: Double, ethPrice: Double, ltcPrice: Double, ad
     currentPrices["ARB"] = arbPrice
     currentPrices["XRP"] = xrpPrice
     currentPrices["SOL"] = solPrice
+    currentPrices["APT"] = aptPrice
     // Notify the adapter to refresh the data
     notifyDataSetChanged()
 }
@@ -96,6 +98,7 @@ fun updateCurrentPrices(btcPrice: Double, ethPrice: Double, ltcPrice: Double, ad
         private val adapter: PositionAdapter,
         private val onDeleteClick: (PositionEntity) -> Unit,
         private val onCloseatClick: (PositionEntity) -> Unit,
+        private val onItemClick: (PositionEntity) -> Unit,
         private val viewModel: PositionViewModel // Pass ViewModel here
     ) : RecyclerView.ViewHolder(itemView) {
 
@@ -112,6 +115,7 @@ fun updateCurrentPrices(btcPrice: Double, ethPrice: Double, ltcPrice: Double, ad
             val currentPrice = adapter.getCurrentPrice(position.coin)
 
             tvCoin.text = position.coin
+
             tvBuyPrice.text = "Buy Price: $${position.buyPrice}"
             tvAmount.text = "Amount: ${position.amount} ${position.coin}"
             tvTotalUsd.text = "Total: $${String.format("%.2f", position.valueUsd)}"
@@ -135,6 +139,10 @@ fun updateCurrentPrices(btcPrice: Double, ethPrice: Double, ltcPrice: Double, ad
             tvProfitLoss.setTextColor(
                 if (profitLoss < 0) Color.RED else Color.GREEN
             )
+
+            itemView.setOnClickListener{
+                onItemClick(position)
+            }
 
             closeat.setOnClickListener {
                 onCloseatClick(position)

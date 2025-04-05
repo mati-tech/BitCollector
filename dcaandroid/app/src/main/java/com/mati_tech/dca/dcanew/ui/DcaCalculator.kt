@@ -27,6 +27,18 @@ import com.mati_tech.dca.dcanew.viewmodel.PositionViewModel
 import com.mati_tech.dca.dcanew.repos.PositionRepos
 import com.mati_tech.dca.dcanew.utils.PositionAdapter
 import com.mati_tech.dca.dcanew.viewmodel.PositionViewModelFactory
+/*
+steps for adding a new coin to the code:
+first: add the variable with coin name
+second: use the var to get the price from fetched pricelist in the viewmodel observer
+third: add it in the text view and in the function in the viewmodel to fetch the price from the list
+fourth: update the updatecurrentPrice function in the viewmodel
+fifth: in the onResumemethod in the startFetchingPrice make put the coin name also
+sixth: in the spinner also add the coin name
+ */
+/*
+bnb, trx, link, ton, xlm, sui, near, ondo , fil, ena, cyber,
+ */
 
 
 class DcaCalculator : AppCompatActivity() {
@@ -49,6 +61,10 @@ class DcaCalculator : AppCompatActivity() {
     private var arbPrice : Double = 0.0
     private var solPrice : Double = 0.0
     private var xrpPrice : Double = 0.0
+    private var aptPrice : Double = 0.0
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,14 +78,11 @@ class DcaCalculator : AppCompatActivity() {
         val formattedBalance = String.format("%.2f", balance)
         binding.TotalMoneyInCrypto.text = "Total Balance: $formattedBalance$"
 
-
         repos = PositionRepos(applicationContext)
         val factory = PositionViewModelFactory(repos)
         viewModel = ViewModelProvider(this, factory).get(PositionViewModel::class.java)
-        // Observe LiveData from ViewModel
 
         viewModel.fetchPositions()
-
         viewModel.cryptoPrices.observe(this, Observer { prices ->
 
             if (prices.isNotEmpty()){
@@ -86,15 +99,17 @@ class DcaCalculator : AppCompatActivity() {
                 xrpPrice = pricesList.find { it.symbol.contains("XRPUSDT")}?.price?.toDouble() ?: 0.0
                 arbPrice = pricesList.find { it.symbol.contains("ARBUSDT") }?.price?.toDouble() ?: 0.0
                 solPrice = pricesList.find { it.symbol.contains("SOLUSDT") }?.price?.toDouble() ?: 0.0
+                aptPrice = pricesList.find { it.symbol.contains("APTUSDT")  }?.price?.toDouble() ?: 0.0
+
 
                 binding.currentprice.text =
                     "BTC: $btcPrice$ ---- LTC: $ltcPrice$\n"+
                             "ETH: $ethPrice$ ---- ADA: $adaPrice$\n" +
                             "DOT: $dotPrice$ ---- AVAX: $avaxPrice$\n" +
                             "XRP: $xrpPrice$ ---- ARB: $arbPrice$\n" +
-                            "SOL: $solPrice\$"
+                            "SOL: $solPrice$ ---- APT: $aptPrice$\n"
 
-                adapter.updateCurrentPrices(btcPrice, ethPrice, ltcPrice, adaPrice, dotPrice, avaxPrice, arbPrice, xrpPrice, solPrice)
+                adapter.updateCurrentPrices(btcPrice, ethPrice, ltcPrice, adaPrice, dotPrice, avaxPrice, arbPrice, xrpPrice, solPrice, aptPrice)
 
                 updatepnl()
                 updateCurrentValue()
@@ -118,12 +133,14 @@ class DcaCalculator : AppCompatActivity() {
                 showDeletePositionConfirmationBox(position)
 //                val currentPrice = adapter.getCurrentPrice(position.coin) // Get latest price
 //                viewModel.closePosition(position.id, currentPrice) // Pass updated price
-            })
+            },
+            onItemClick = {
+                position ->
 
-//        recyclerView.adapter = adapter
-//        viewModel.positions.observe(this) { positions ->
-//            adapter.updateData(positions)
-//        }
+            }
+            )
+
+//
         // Observe total sum
         viewModel.totalInvested.observe(this) { total ->
             val balance = sharedPreferences.getFloat("balance", 0.0f)
@@ -216,7 +233,7 @@ class DcaCalculator : AppCompatActivity() {
     }
 
     private fun setupSpinner() {
-        val coins = listOf("BTC", "LTC", "SOL", "ETH", "XRP", "ADA", "DOT", "AVAX", "ARB")
+        val coins = listOf("BTC", "LTC", "SOL", "ETH", "XRP", "ADA", "DOT", "AVAX", "ARB", "APT")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, coins)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.coinNameSpinner.adapter = adapter
@@ -279,14 +296,17 @@ class DcaCalculator : AppCompatActivity() {
             PositionEntity(coin = coin, buyPrice = buyPrice, amount = amount, valueUsd = valueinusd)
         viewModel.addPosition(position)
         viewModel.fetchTotalInvested()
+        binding.BuyPrice.text.clear()
+        binding.AmountinCoin.text.clear()
+        binding.ValueinUSD.text.clear()
+
     }
     override fun onResume() {
         super.onResume()
-        val cryptoList = listOf("BTCUSDT", "ETHUSDT", "LTCUSDT", "ADAUSDT", "XRPUSDT", "DOTUSDT", "SOLUSDT", "AVAXUSDT", "ARBUSDT")
+        val cryptoList = listOf("BTCUSDT", "ETHUSDT", "LTCUSDT", "ADAUSDT", "XRPUSDT", "DOTUSDT", "SOLUSDT", "AVAXUSDT", "ARBUSDT", "APTUSDT")
         viewModel.startFetchingPrices(cryptoList) // Starts fetching price every second
 
         viewModel.fetchTotalInvested()
-
         var balance = sharedPreferences.getFloat("balance", 0.0f)
         val formattedBalance = String.format("%.2f", balance)
         binding.TotalMoneyInCrypto.text = "Total Balance: $formattedBalance$"
