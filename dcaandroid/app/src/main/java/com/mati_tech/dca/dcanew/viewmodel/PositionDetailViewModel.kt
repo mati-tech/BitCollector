@@ -256,11 +256,14 @@ import androidx.lifecycle.viewModelScope
 import com.mati_tech.dca.dcanew.db.PositionDetailEntity
 import com.mati_tech.dca.dcanew.repos.PositionDetailRepos
 import kotlinx.coroutines.launch
+import java.math.BigDecimal
+import java.math.RoundingMode
 import kotlin.math.roundToInt
 
 class PositionDetailViewModel(private val repository: PositionDetailRepos) : ViewModel() {
 
     private var _availableUsd = 0.0
+
     private val _netUsdBalance = MutableLiveData<Double>(_availableUsd)
     val netUsdBalance: LiveData<Double> get() = _netUsdBalance
 
@@ -275,6 +278,9 @@ class PositionDetailViewModel(private val repository: PositionDetailRepos) : Vie
 
     private val _averageBuyPrice = MutableLiveData<Double?>()
     val averageBuyPrice: LiveData<Double?> get() = _averageBuyPrice
+
+    private val _totalPNL = MutableLiveData<Double?>()
+    val totalPNL: LiveData<Double?> get() = _totalPNL
 
     fun insertTrade(trade: PositionDetailEntity) {
         viewModelScope.launch {
@@ -364,14 +370,21 @@ class PositionDetailViewModel(private val repository: PositionDetailRepos) : Vie
                 _errorLiveData.postValue("Invalid price")
                 return@launch
             }
+
+
             // Round to 8 decimals
             val amountToBuy = (_availableUsd / currentPrice * 100000000.0).toLong() / 100000000.0
-            val totalCost = amountToBuy * currentPrice
+
+            // Round tradePrice and totalCost to 2 decimals
+            val roundedPrice = BigDecimal(currentPrice).setScale(2, RoundingMode.HALF_EVEN).toDouble()
+            val totalCost = BigDecimal(amountToBuy * currentPrice).setScale(2, RoundingMode.HALF_EVEN).toDouble()
+//            val totalCost = amountToBuy * currentPrice
+
             val buyTrade = PositionDetailEntity(
                 positionId = positionId,
                 tradeType = "BUY",
                 tradeAmount = amountToBuy,
-                tradePrice = currentPrice,
+                tradePrice = roundedPrice ,
                 totalCost = totalCost
             )
             repository.insertTrade(buyTrade)
@@ -395,13 +408,20 @@ class PositionDetailViewModel(private val repository: PositionDetailRepos) : Vie
                 return@launch
             }
             // Round to 8 decimals
-//            val roundedCoin = (availableCoin * 100000000.0).toLong() / 100000000.0
+//            val roundedCoin = (availableCoin * 100000000.0).toLong() / 100000000.0'
+
+            val roundedCoin = BigDecimal(availableCoin)
+                .setScale(8, RoundingMode.HALF_EVEN)
+                .toDouble()
+
             val totalValue = ((availableCoin * currentPrice) * 100).roundToInt() / 100.0
+
 //            val totalValue = availableCoin * currentPrice
+
             val sellTrade = PositionDetailEntity(
                 positionId = positionId,
                 tradeType = "SELL",
-                tradeAmount = availableCoin,
+                tradeAmount = roundedCoin,
                 tradePrice = currentPrice,
                 totalCost = totalValue
             )
@@ -417,6 +437,7 @@ class PositionDetailViewModel(private val repository: PositionDetailRepos) : Vie
 
             _currentHeldAmount.postValue(repository.getCurrentHeldAmount(positionId))
             _averageBuyPrice.postValue(repository.getAverageBuyPrice(positionId))
+            _totalPNL.postValue(repository.getRealizedPnl(positionId))
         }
     }
 

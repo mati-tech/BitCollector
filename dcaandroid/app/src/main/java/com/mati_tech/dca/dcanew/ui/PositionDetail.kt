@@ -304,26 +304,26 @@ class PositionDetail : AppCompatActivity() {
         positionDetailAdapter = PositionDetailAdapter(object : PositionDetailAdapter.OnTradeClickListener {
 
             override fun onTradeLongClick(trade: PositionDetailEntity) {
-                AlertDialog.Builder(this@PositionDetail)
-                    .setTitle("Delete Trade")
-                    .setMessage("Are you sure you want to delete this ${trade.tradeType} trade?")
-                    .setPositiveButton("Yes") { _, _ ->
-                        viewModel.deleteTrade(trade)
-                        Toast.makeText(
-                            this@PositionDetail,
-                            "Deleted ${trade.tradeType} trade",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                    .setNegativeButton("No", null)
-                    .show()
+//                AlertDialog.Builder(this@PositionDetail)
+//                    .setTitle("Delete Trade")
+//                    .setMessage("Are you sure you want to delete this ${trade.tradeType} trade?")
+//                    .setPositiveButton("Yes") { _, _ ->
+//                        viewModel.deleteTrade(trade)
+//                        Toast.makeText(
+//                            this@PositionDetail,
+//                            "Deleted ${trade.tradeType} trade",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                    }
+//                    .setNegativeButton("No", null)
+//                    .show()
                 // Handle long-click (delete trade)
-//                viewModel.deleteTrade(trade)
-//                Toast.makeText(
-//                    this@PositionDetail,
-//                    "Deleted ${trade.tradeType} trade",
-//                    Toast.LENGTH_SHORT
-//                ).show()
+                viewModel.deleteTrade(trade)
+                Toast.makeText(
+                    this@PositionDetail,
+                    "Deleted ${trade.tradeType} trade",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
 //        positionDetailAdapter = PositionDetailAdapter()
@@ -374,6 +374,15 @@ class PositionDetail : AppCompatActivity() {
         viewModel.averageBuyPrice.observe(this) { price ->
             binding.tvAvergaeBuyPrice.text = "Avg Buy Price: $%.2f".format(price ?: 0.0)
         }
+        viewModel.totalPNL.observe(this) { pnl ->
+            binding.tvTotalPnl.text = "total PNL: %.2f$".format(pnl)
+            if (pnl != null) {
+                binding.tvTotalPnl.setTextColor(
+                    if (pnl >= 0) Color.GREEN else Color.RED
+                )
+            }
+        }
+
 
         // Observe errors
         viewModel.errorLiveData.observe(this) { error ->
