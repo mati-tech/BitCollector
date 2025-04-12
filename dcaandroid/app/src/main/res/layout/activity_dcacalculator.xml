@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="DCA Calculator"
-                android:textColor="@color/main"
+
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_centerInParent="true"/>
@@ -40,7 +40,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:src="@drawable/baseline_person_24"
-                android:onClick="GoToProfile"
+
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"/>
 
@@ -127,6 +127,7 @@
                         android:layout_weight="1"
                         android:background="@color/main3"
                         android:textStyle="bold"
+                        android:textColor="@color/black"
                         android:padding="8dp"/>
                 </LinearLayout>
 
@@ -190,6 +191,7 @@
                         android:layout_height="match_parent"
                         android:text="Total Money in Crypto: "
                         android:textSize="14sp"
+                        android:textColor="@color/black"
                         android:gravity="center"
                         android:layout_weight="1"
                         android:background="@color/main3"
@@ -204,7 +206,7 @@
                 <Button
                     android:id="@+id/btnCurrentPositions"
                     android:layout_width="match_parent"
-                    android:onClick="GoToOnGoingPositions"
+
                     android:layout_height="wrap_content"
                     android:text="Open Positions"
                     android:textColor="@color/main3"

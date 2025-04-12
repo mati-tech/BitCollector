@@ -45,4 +45,9 @@ interface PositionDao {
     )
     @Query("SELECT SUM(valueUsd) FROM positions where sellPrice IS NULL")
     suspend fun getTotalInPositions(): Double?
+
+
+    // here to update the price back in the table after trading in the position detail
+    @Query("UPDATE positions SET amount = :newAmount, buyPrice = :newAvgPrice WHERE id = :positionId")
+    suspend fun updatePositionStats(positionId: Int, newAmount: Double, newAvgPrice: Double)
 }

@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mati_tech.dca.databinding.ActivityPositionHistoryBinding
+import com.mati_tech.dca.dcanew.db.AppDatabase
 import com.mati_tech.dca.dcanew.db.PositionEntity
 import com.mati_tech.dca.dcanew.repos.PositionRepos
 import com.mati_tech.dca.dcanew.utils.HistoryAdapter
@@ -28,8 +29,9 @@ class PositionHistory : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPositionHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val db = AppDatabase.getDatabase(this)
 
-        val repository = PositionRepos(applicationContext)
+        val repository = PositionRepos(db.positionDao())
         val factory = HistoryViewModelFactory(repository)
         viewModel = ViewModelProvider(this, factory).get(HistoryViewModel::class.java)
 

@@ -6,10 +6,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_margin="6dp"
     android:elevation="4dp"
 
-    android:padding="4dp"
     android:background="@color/main3"
     app:cardCornerRadius="8dp">
     <LinearLayout
@@ -17,10 +16,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
+    android:padding="2dp"
     android:background="@android:color/white"
 
-    android:layout_margin="10dp">
+    android:layout_margin="2dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,7 +56,8 @@
             android:id="@+id/tvBuyPriceHistory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
+            android:textSize="12sp"
             android:text="Buy Price: $115" />
 
         <TextView
@@ -65,6 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="12sp"
             android:text="BuyDate" />
     </LinearLayout>
 
@@ -73,12 +74,14 @@
         android:id="@+id/tvAmountHistory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="12sp"
         android:text="Amount: 0.5 LTC" />
 
     <TextView
         android:id="@+id/tvTotalUsdHistory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="12sp"
         android:text="Value: $57.50" />
 
     <LinearLayout
@@ -91,8 +94,8 @@
             android:id="@+id/sellPriceHistory"
             android:layout_height="wrap_content"
             android:text="sellPrice: $57.50"
-            android:layout_weight="1"
-            android:textSize="14sp"
+            android:textSize="12sp"
+            android:layout_weight="0.5"
             ></TextView>
 
         <TextView
@@ -100,6 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="12sp"
             android:text="SellDate" />
 
     </LinearLayout>
@@ -110,7 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="P/L: $0.00"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:layout_weight="1"
             android:textStyle="bold" />
 

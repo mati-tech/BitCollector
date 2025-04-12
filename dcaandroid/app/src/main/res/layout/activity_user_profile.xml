@@ -113,7 +113,9 @@
         android:hint="Enter amount"
         android:inputType="numberDecimal"
         android:textSize="18sp"
+        android:textColor="@color/black"
         android:padding="12dp"
+        android:textColorHint="@color/black"
         android:layout_marginTop="16dp"
         android:background="@color/main3"/>
 

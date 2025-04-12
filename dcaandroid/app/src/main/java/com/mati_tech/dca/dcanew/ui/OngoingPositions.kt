@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mati_tech.dca.R
 import com.mati_tech.dca.databinding.ActivityOngoingPositionsBinding
+import com.mati_tech.dca.dcanew.db.AppDatabase
 import com.mati_tech.dca.dcanew.db.PositionEntity
 import com.mati_tech.dca.dcanew.remote.CryptoResponse
 import com.mati_tech.dca.dcanew.repos.PositionRepos
@@ -44,8 +45,9 @@ class OngoingPositions : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityOngoingPositionsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val db = AppDatabase.getDatabase(this)
 
-        repos = PositionRepos(applicationContext)
+        repos = PositionRepos(db.positionDao())
         val factory = PositionViewModelFactory(repos)
         viewModel = ViewModelProvider(this, factory).get(PositionViewModel::class.java)
         // Observe LiveData from ViewModel
@@ -107,6 +109,7 @@ class OngoingPositions : AppCompatActivity() {
                 // Handle item click
                 Toast.makeText(this, "Clicked on: ${position.coin}", Toast.LENGTH_SHORT).show()
                 val intent = Intent ( this, PositionDetail::class.java)
+                intent.putExtra("coin_id", position.id)
                 intent.putExtra("coin_name", position.coin)
                 intent.putExtra("total_amount", position.amount.toString())
                 intent.putExtra("avg_buy_price", position.buyPrice.toString())

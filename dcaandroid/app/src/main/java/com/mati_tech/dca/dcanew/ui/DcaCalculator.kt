@@ -19,6 +19,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mati_tech.dca.databinding.ActivityDcacalculatorBinding
+import com.mati_tech.dca.dcanew.db.AppDatabase
 import com.mati_tech.dca.dcanew.db.PositionEntity
 import com.mati_tech.dca.dcanew.remote.CryptoResponse
 
@@ -27,6 +28,8 @@ import com.mati_tech.dca.dcanew.viewmodel.PositionViewModel
 import com.mati_tech.dca.dcanew.repos.PositionRepos
 import com.mati_tech.dca.dcanew.utils.PositionAdapter
 import com.mati_tech.dca.dcanew.viewmodel.PositionViewModelFactory
+import kotlinx.coroutines.async
+
 /*
 steps for adding a new coin to the code:
 first: add the variable with coin name
@@ -70,15 +73,14 @@ class DcaCalculator : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDcacalculatorBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
+        val db = AppDatabase.getDatabase(this)
         sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
 
         var balance = sharedPreferences.getFloat("balance", 0.0f)
         val formattedBalance = String.format("%.2f", balance)
         binding.TotalMoneyInCrypto.text = "Total Balance: $formattedBalance$"
 
-        repos = PositionRepos(applicationContext)
+        repos = PositionRepos(db.positionDao())
         val factory = PositionViewModelFactory(repos)
         viewModel = ViewModelProvider(this, factory).get(PositionViewModel::class.java)
 
@@ -154,11 +156,21 @@ class DcaCalculator : AppCompatActivity() {
         setupSpinner()
         setupInputListeners()
         updateCurrentValue()
-        binding.btnAddPosition.setOnClickListener { addPosition() }
+        binding.btnAddPosition.setOnClickListener {
+            addPosition()
+        }
 
         binding.historyButton.setOnClickListener{
             val intent = Intent(this, PositionHistory::class.java)
 
+            startActivity(intent)
+        }
+        binding.btnCurrentPositions.setOnClickListener {
+            val intent = Intent(this, OngoingPositions::class.java)
+            startActivity(intent)
+        }
+        binding.profileIcon.setOnClickListener {
+            val intent = Intent(this, UserProfile::class.java)
             startActivity(intent)
         }
     }
