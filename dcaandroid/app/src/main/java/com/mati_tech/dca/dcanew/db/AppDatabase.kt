@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-@Database(entities = [PositionEntity::class, PositionDetailEntity::class], version = 5)
+@Database(entities = [PositionEntity::class, PositionDetailEntity::class], version = 6)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun positionDao(): PositionDao
     abstract fun positionDetailDao(): PositionDetailDao
@@ -33,13 +33,19 @@ abstract class AppDatabase : RoomDatabase() {
                 )
             }
         }
+        val MIGRATION_5_6 = object : Migration(5, 6) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE `position_details` ADD COLUMN `availableUsd` REAL DEFAULT 0.0 NOT NULL")
+            }
+        }
+
         fun getDatabase(context: Context): AppDatabase {
             return instance ?: synchronized(this) {
                 val newInstance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
                     "trading_database"
-                ).addMigrations(MIGRATION_4_5)   // 💥 This resets the database when the schema changes
+                ).addMigrations(MIGRATION_4_5, MIGRATION_5_6)   // 💥 This resets the database when the schema changes
                     .build()
                 instance = newInstance
                 newInstance

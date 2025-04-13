@@ -159,35 +159,46 @@ class PositionDetailRepos(private val dao: PositionDetailDao) {
         return dao.getTradesByPositionId(positionId)
     }
 
-    suspend fun getTotalSellValue(positionId: Int): Double? {
-        return dao.getTotalSellValue(positionId)
-    }
-
-    suspend fun getTotalBoughtAmount(positionId: Int): Double? {
-        return dao.getTotalBoughtAmount(positionId)
-    }
-
-    suspend fun getTotalBuyCost(positionId: Int): Double? {
-        return dao.getTotalBuyCost(positionId)
-    }
-
-    suspend fun getAverageBuyPrice(positionId: Int): Double? {
-        return dao.getAverageBuyPrice(positionId)
-    }
-
     suspend fun getCurrentHeldAmount(positionId: Int): Double {
         return dao.getCurrentHeldAmount(positionId)
     }
 
-    suspend fun getRealizedPnl(positionId: Int): Double {
-        return dao.getRealizedPnl(positionId)
+    suspend fun getAvailableUsd(positionId: Int): Double {
+        return dao.getAvailableUsd(positionId) ?: 0.0
+    }
+    suspend fun updateAvailableUsd(positionId: Int, usd: Double) {
+        dao.updateAvailableUsd(positionId, usd)
     }
 
-    suspend fun getUnrealizedPnl(positionId: Int, currentPrice: Double): Double? {
-        return dao.getUnrealizedPnl(positionId, currentPrice)
+    suspend fun getAverageBuyPrice(positionId: Int): Double? {
+        val totalBoughtAmount = dao.getTotalBoughtAmount(positionId) ?: 0.0
+        val totalBuyCost = dao.getTotalBuyCost(positionId) ?: 0.0
+        return if (totalBoughtAmount > 0.0) totalBuyCost / totalBoughtAmount else null
     }
 
-    suspend fun getLastTrade(positionId: Int): PositionDetailEntity? {
-        return dao.getLastTrade(positionId)
+    suspend fun getRealizedPnL(positionId: Int): Double {
+        val totalSellUsd = dao.getTotalSellValue(positionId) ?: 0.0
+        val totalSellCoins = dao.getTotalSellCoins(positionId) ?: 0.0 // you may add this DAO method
+        val avgBuyPrice = getAverageBuyPrice(positionId) ?: 0.0
+        return totalSellUsd - (avgBuyPrice * totalSellCoins)
     }
+
+    suspend fun getCurrentHeldCoins(positionId: Int): Double {
+        val totalBoughtCoins = dao.getTotalBoughtAmount(positionId) ?: 0.0
+        val totalSellCoins = dao.getTotalSellCoins(positionId) ?: 0.0
+        return totalBoughtCoins - totalSellCoins
+    }
+
+    suspend fun getUnrealizedPnL(positionId: Int, currentMarketPrice: Double): Double {
+        val avgBuyPrice = getAverageBuyPrice(positionId) ?: 0.0
+        val heldCoins = getCurrentHeldCoins(positionId)
+        return (currentMarketPrice - avgBuyPrice) * heldCoins
+    }
+
+    suspend fun getTotalPnL(positionId: Int, currentMarketPrice: Double): Double {
+        val realized = getRealizedPnL(positionId)
+        val unrealized = getUnrealizedPnL(positionId, currentMarketPrice)
+        return realized + unrealized
+    }
+
 }

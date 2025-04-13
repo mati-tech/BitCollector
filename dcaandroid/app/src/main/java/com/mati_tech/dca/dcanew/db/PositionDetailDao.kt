@@ -182,6 +182,9 @@ interface PositionDetailDao {
     @Query("SELECT * FROM position_details WHERE positionId = :positionId ORDER BY timestamp ASC")
     fun getTradesByPositionId(positionId: Int): LiveData<List<PositionDetailEntity>>
 
+    @Query("SELECT COALESCE(SUM(tradeAmount), 0) FROM position_details WHERE positionId = :positionId AND tradeType = 'SELL'")
+    suspend fun getTotalSellCoins(positionId: Int): Double?
+
     @Query("SELECT SUM(totalCost) FROM position_details WHERE positionId = :positionId AND tradeType = 'SELL'")
     suspend fun getTotalSellValue(positionId: Int): Double?
 
@@ -190,6 +193,14 @@ interface PositionDetailDao {
 
     @Query("SELECT SUM(totalCost) FROM position_details WHERE positionId = :positionId AND tradeType = 'BUY'")
     suspend fun getTotalBuyCost(positionId: Int): Double?
+
+    @Query("SELECT availableUsd FROM position_details WHERE positionId = :positionId")
+    suspend fun getAvailableUsd(positionId: Int): Double?
+
+    @Query("UPDATE position_details SET availableUsd = :usd WHERE positionId = :positionId")
+    suspend fun updateAvailableUsd(positionId: Int, usd: Double)
+
+
 
 //    @Query("""
 //        SELECT COALESCE(
