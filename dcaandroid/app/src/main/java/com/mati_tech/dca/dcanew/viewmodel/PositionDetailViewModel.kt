@@ -36,6 +36,8 @@ class PositionDetailViewModel(private val repository: PositionDetailRepos) : Vie
 //    private val _totalPNL = MutableLiveData<Double?>()
 //    val totalPNL: LiveData<Double?> get() = _totalPNL
 
+
+
     fun updatePriceAndCalculatePnl(newPrice: Double, positionId: Int) {
         currentPrice = newPrice
         viewModelScope.launch {
@@ -131,12 +133,13 @@ class PositionDetailViewModel(private val repository: PositionDetailRepos) : Vie
             updateBalances(positionId)
         }
     }
+
     private fun updateBalances(positionId: Int) {
         viewModelScope.launch {
             val usd = repository.getAvailableUsd(positionId)
             _availableUsd.postValue(usd)
             _currentHeldAmount.postValue(repository.getCurrentHeldAmount(positionId))
-            _averageBuyPrice.postValue(repository.getAverageBuyPrice(positionId))
+            _averageBuyPrice.postValue(repository.getBreakEvenPrice(positionId))
             _totalPnl.postValue(repository.getTotalPnL(positionId, currentPrice))
         }
     }

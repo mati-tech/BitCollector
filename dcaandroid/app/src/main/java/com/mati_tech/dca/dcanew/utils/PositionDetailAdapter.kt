@@ -283,7 +283,7 @@ class PositionDetailAdapter (private val onTradeClickListener: OnTradeClickListe
 
         fun bind(trade: PositionDetailEntity) {
             tradeType.text = trade.tradeType
-            tradeAmount.text = "Amount: %.8f".format(trade.tradeAmount)
+            tradeAmount.text = "Amount: %.4f".format(trade.tradeAmount)
             tradePrice.text = "Price: $%.2f".format(trade.tradePrice)
             totalCost.text = "Total: $%.2f".format(trade.totalCost)
             tradeType.setTextColor(

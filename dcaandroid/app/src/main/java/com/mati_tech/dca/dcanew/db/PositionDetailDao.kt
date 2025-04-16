@@ -232,8 +232,10 @@ interface PositionDetailDao {
 
     suspend fun getRealizedPnl(positionId: Int): Double {
         val totalSellValue = getTotalSellValue(positionId) ?: 0.0
-        val totalBuyCost = getTotalBuyCost(positionId) ?: 0.0
-        return totalSellValue - totalBuyCost
+        val totalSoldAmount = getTotalSellCoins(positionId) ?: 0.0
+        val avgBuyPrice = getAverageBuyPrice(positionId) ?: 0.0
+        val costOfSoldCoins = totalSoldAmount * avgBuyPrice
+        return totalSellValue - costOfSoldCoins
     }
 
     suspend fun getUnrealizedPnl(positionId: Int, currentPrice: Double): Double? {
@@ -241,7 +243,16 @@ interface PositionDetailDao {
         val avgBuyPrice = getAverageBuyPrice(positionId) ?: return null
         return (currentPrice - avgBuyPrice) * currentHeldAmount
     }
-
+    suspend fun getBreakEvenPrice(positionId: Int): Double? {
+        val realizedPnl = getRealizedPnl(positionId)
+        val currentHeldAmount = getCurrentHeldAmount(positionId)
+        val avgBuyPrice = getAverageBuyPrice(positionId) ?: return null
+        return if (currentHeldAmount > 0) {
+            avgBuyPrice + (-realizedPnl / currentHeldAmount)
+        } else {
+            null
+        }
+    }
     @Query("SELECT * FROM position_details WHERE positionId = :positionId ORDER BY timestamp DESC LIMIT 1")
     suspend fun getLastTrade(positionId: Int): PositionDetailEntity?
 

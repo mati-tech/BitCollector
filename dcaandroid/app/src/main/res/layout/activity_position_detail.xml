@@ -70,17 +70,17 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:text="Initial Amount: -"
-                    android:textSize="12sp"/>
+                    android:textSize="11sp"/>
 
                 <TextView
                     android:id="@+id/tv_current_coin_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="end"
+                    android:gravity="start"
                     android:text="Current Amount: -"
                     android:textColor="@color/black"
-                    android:textSize="12sp" />
+                    android:textSize="11sp" />
 
             </LinearLayout>
 
@@ -97,16 +97,16 @@
                 android:layout_weight="1"
                 android:textColor="@color/black"
                 android:text="Initial Buy Price: -"
-                android:textSize="12sp"/>
+                android:textSize="11sp"/>
             <TextView
                 android:id="@+id/tv_avergae_buy_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="end"
+                android:gravity="start"
                 android:textColor="@color/black"
                 android:text="Average Buy Price: -"
-                android:textSize="12sp"/>
+                android:textSize="11sp"/>
         </LinearLayout>
 
             <LinearLayout
@@ -127,10 +127,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Current Price: -"
-                    android:gravity="end"
+                    android:gravity="start"
                     android:background="@color/main2"
                     android:layout_weight="1"
-                    android:textSize="12sp"
+                    android:textSize="11sp"
                     android:textColor="@color/main3"/>
             </LinearLayout>
 
@@ -153,16 +153,16 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:text="Available Coin: -"
-                    android:textSize="12sp"/>
+                    android:textSize="11sp"/>
                 <TextView
                     android:id="@+id/tv_available_usd_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="end"
+                    android:gravity="start"
                     android:textColor="@color/black"
                     android:text="Available Usd: -"
-                    android:textSize="12sp"/>
+                    android:textSize="11sp"/>
 
             </LinearLayout>
 

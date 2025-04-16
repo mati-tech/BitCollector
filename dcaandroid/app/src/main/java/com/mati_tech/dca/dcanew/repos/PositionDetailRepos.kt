@@ -195,6 +195,16 @@ class PositionDetailRepos(private val dao: PositionDetailDao) {
         return (currentMarketPrice - avgBuyPrice) * heldCoins
     }
 
+    suspend fun getBreakEvenPrice(positionId: Int): Double? {
+        val realizedPnl = getRealizedPnL(positionId)
+        val currentHeldAmount = getCurrentHeldCoins(positionId)
+        val avgBuyPrice = getAverageBuyPrice(positionId) ?: return null
+        return if (currentHeldAmount > 0) {
+            avgBuyPrice + (-realizedPnl / currentHeldAmount)
+        } else {
+            null
+        }
+    }
     suspend fun getTotalPnL(positionId: Int, currentMarketPrice: Double): Double {
         val realized = getRealizedPnL(positionId)
         val unrealized = getUnrealizedPnL(positionId, currentMarketPrice)
