@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.mati_tech.dca.R
-import com.mati_tech.dca.dcanew.ui.DcaCalculator
+import com.mati_tech.dca.dcanew.ui.BitCollector
 
 import retrofit2.Call
 import retrofit2.Callback
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
 
         btnAddPosition.setOnLongClickListener{
-            val intent = Intent(this, DcaCalculator::class.java)
+            val intent = Intent(this, BitCollector::class.java)
             startActivity(intent)
             return@setOnLongClickListener true
         }

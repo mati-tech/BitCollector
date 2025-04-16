@@ -40,6 +40,7 @@ class OngoingPositions : AppCompatActivity() {
     private var solPrice : Double = 0.0
     private var xrpPrice : Double = 0.0
     private var aptPrice : Double = 0.0
+    private var enaPrice : Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +72,7 @@ class OngoingPositions : AppCompatActivity() {
                 arbPrice = pricesList.find { it.symbol.contains("ARBUSDT") }?.price?.toDouble() ?: 0.0
                 solPrice = pricesList.find { it.symbol.contains("SOLUSDT") }?.price?.toDouble() ?: 0.0
                 aptPrice = pricesList.find { it.symbol.contains("APTUSDT") }?.price?.toDouble() ?: 0.0
+                enaPrice = pricesList.find { it.symbol.contains("APTUSDT") }?.price?.toDouble() ?: 0.0
 
 //                binding.currentprice.text =
 //                    "BTC: $btcPrice$ ---- LTC: $ltcPrice$\n"+
@@ -79,7 +81,7 @@ class OngoingPositions : AppCompatActivity() {
 //                            "XRP: $xrpPrice$ ---- ARB: $arbPrice$\n" +
 //                            "SOL: $solPrice\$"
 
-                adapter.updateCurrentPrices(btcPrice, ethPrice, ltcPrice, adaPrice, dotPrice, avaxPrice, arbPrice, xrpPrice, solPrice, aptPrice)
+                adapter.updateCurrentPrices(btcPrice, ethPrice, ltcPrice, adaPrice, dotPrice, avaxPrice, arbPrice, xrpPrice, solPrice, aptPrice, enaPrice)
 
 
 //                updatepnl()
@@ -181,7 +183,7 @@ class OngoingPositions : AppCompatActivity() {
     }
     override fun onResume() {
         super.onResume()
-        val cryptoList = listOf("BTCUSDT", "ETHUSDT", "LTCUSDT", "ADAUSDT", "XRPUSDT", "DOTUSDT", "SOLUSDT", "AVAXUSDT", "ARBUSDT", "APTUSDT")
+        val cryptoList = listOf("BTCUSDT", "ETHUSDT", "LTCUSDT", "ADAUSDT", "XRPUSDT", "DOTUSDT", "SOLUSDT", "AVAXUSDT", "ARBUSDT", "APTUSDT", "ENAUSDT")
         viewModel.startFetchingPrices(cryptoList) // Starts fetching price every second
     }
 

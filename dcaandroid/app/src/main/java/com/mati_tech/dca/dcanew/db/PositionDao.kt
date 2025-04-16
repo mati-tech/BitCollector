@@ -11,6 +11,9 @@ interface PositionDao {
     @Query("SELECT * FROM positions WHERE sellPrice IS NULL ORDER BY buytimestamp DESC")
     suspend fun getAllPositions(): List<PositionEntity>
 
+    @Query("SELECT * FROM positions WHERE id = :positionId")
+    suspend fun getPositionById(positionId: Int): PositionEntity
+
     @Query("SELECT * FROM positions WHERE sellPrice IS Not NULL ORDER BY buytimestamp DESC")
     suspend fun getAllPositionsHistory(): List<PositionEntity>
 
@@ -46,8 +49,8 @@ interface PositionDao {
     @Query("SELECT SUM(valueUsd) FROM positions where sellPrice IS NULL")
     suspend fun getTotalInPositions(): Double?
 
-
     // here to update the price back in the table after trading in the position detail
     @Query("UPDATE positions SET amount = :newAmount, buyPrice = :newAvgPrice WHERE id = :positionId")
     suspend fun updatePositionStats(positionId: Int, newAmount: Double, newAvgPrice: Double)
+
 }

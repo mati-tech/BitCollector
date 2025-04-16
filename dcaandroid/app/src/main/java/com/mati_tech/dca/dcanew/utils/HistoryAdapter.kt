@@ -31,7 +31,6 @@ class HistoryAdapter(
         val view = LayoutInflater.from(parent.context).inflate(R.layout.history_item, parent, false)
         return HistoryViewHolder(view, viewModel)
     }
-
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         val item = positions[position]
         holder.bind(positions[position], onEditClick)
@@ -134,6 +133,5 @@ class HistoryAdapter(
 
             dialog.show()
         }
-
     }
 }

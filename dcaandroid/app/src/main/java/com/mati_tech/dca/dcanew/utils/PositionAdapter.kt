@@ -44,18 +44,8 @@ class PositionAdapter(
         notifyDataSetChanged()
     }
 
-//    fun updateCurrentPrices(priceList: List<CryptoResponse>) {
-//        for (price in priceList) {
-//            currentPrices[price.symbol] = price.price.toDouble()  // Store latest price
-//        }
-////        cryptoList.forEach { crypto ->
-////            println("Updating price: ${crypto.symbol} -> ${crypto.price}") // Debug
-////        }
-//        notifyDataSetChanged()
-//    }
-// Method to update the current prices for each cryptocurrency
-// Method to update the current prices for each cryptocurrency
-fun updateCurrentPrices(btcPrice: Double, ethPrice: Double, ltcPrice: Double, adaPrice: Double, dotPrice: Double, avaxPrice: Double, arbPrice: Double, xrpPrice: Double, solPrice: Double , aptPrice: Double ) {
+
+fun updateCurrentPrices(btcPrice: Double, ethPrice: Double, ltcPrice: Double, adaPrice: Double, dotPrice: Double, avaxPrice: Double, arbPrice: Double, xrpPrice: Double, solPrice: Double , aptPrice: Double, enaPrice: Double ) {
     // Update the prices in the currentPrices map based on the coin symbols
     currentPrices["BTC"] = btcPrice
     currentPrices["ETH"] = ethPrice
@@ -67,6 +57,7 @@ fun updateCurrentPrices(btcPrice: Double, ethPrice: Double, ltcPrice: Double, ad
     currentPrices["XRP"] = xrpPrice
     currentPrices["SOL"] = solPrice
     currentPrices["APT"] = aptPrice
+    currentPrices["ENA"] = enaPrice
     // Notify the adapter to refresh the data
     notifyDataSetChanged()
 }
@@ -118,10 +109,10 @@ fun updateCurrentPrices(btcPrice: Double, ethPrice: Double, ltcPrice: Double, ad
 
             tvBuyPrice.text = "Buy Price: $${position.buyPrice}"
             tvAmount.text = "Amount: ${position.amount} ${position.coin}"
-            tvTotalUsd.text = "Total: $${String.format("%.2f", position.valueUsd)}"
+            tvTotalUsd.text = "Total: $${String.format("%.4f", position.valueUsd)}"
 
             if (currentPrice > 0) {
-                tvCurrentPrice.text = "Current Price: $${String.format("%.2f", currentPrice)}"
+                tvCurrentPrice.text = "Current Price: $${String.format("%.4f", currentPrice)}"
             } else {
                 tvCurrentPrice.text = "Loading..."
             }
@@ -133,7 +124,7 @@ fun updateCurrentPrices(btcPrice: Double, ethPrice: Double, ltcPrice: Double, ad
             } else {
                 0.0
             }
-            tvProfitLoss.text = "P/L: $${String.format("%.2f", profitLoss)}"
+            tvProfitLoss.text = "P/L: $${String.format("%.4f", profitLoss)}"
 
             // Color change based on profit/loss
             tvProfitLoss.setTextColor(

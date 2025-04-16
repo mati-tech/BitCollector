@@ -33,8 +33,8 @@ class PositionDetailViewModel(private val repository: PositionDetailRepos) : Vie
     private val _averageBuyPrice = MutableLiveData<Double?>()
     val averageBuyPrice: LiveData<Double?> get() = _averageBuyPrice
 
-    private val _totalPNL = MutableLiveData<Double?>()
-    val totalPNL: LiveData<Double?> get() = _totalPNL
+//    private val _totalPNL = MutableLiveData<Double?>()
+//    val totalPNL: LiveData<Double?> get() = _totalPNL
 
     fun updatePriceAndCalculatePnl(newPrice: Double, positionId: Int) {
         currentPrice = newPrice
@@ -137,7 +137,7 @@ class PositionDetailViewModel(private val repository: PositionDetailRepos) : Vie
             _availableUsd.postValue(usd)
             _currentHeldAmount.postValue(repository.getCurrentHeldAmount(positionId))
             _averageBuyPrice.postValue(repository.getAverageBuyPrice(positionId))
-            _totalPNL.postValue(repository.getTotalPnL(positionId, currentPrice))
+            _totalPnl.postValue(repository.getTotalPnL(positionId, currentPrice))
         }
     }
 

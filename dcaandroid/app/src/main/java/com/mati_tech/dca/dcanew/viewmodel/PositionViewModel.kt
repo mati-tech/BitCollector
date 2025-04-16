@@ -2,6 +2,7 @@ package com.mati_tech.dca.dcanew.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.*
+import com.mati_tech.dca.dcanew.db.PositionDao
 import com.mati_tech.dca.dcanew.db.PositionEntity
 import com.mati_tech.dca.dcanew.remote.CryptoResponse
 import com.mati_tech.dca.dcanew.repos.PositionRepos
@@ -27,6 +28,17 @@ class PositionViewModel(private val repository: PositionRepos) : ViewModel() {
             Log.d("PositionViewModel", "Fetched positions: $positionsFromRepo")
             _positions.postValue(repository.getAllPositions())
         }
+    }
+    suspend fun getPosition(id: Int): PositionEntity {
+//        viewModelScope.launch {
+//            val position = repository.getPositionbyId(id)
+//
+//            // Log the fetched positions to verify
+//            Log.d("PositionViewModel", "Fetched positions: $positionsFromRepo")
+//            _positions.postValue(repository.getAllPositions())
+//        }
+        val position = repository.getPositionbyId(id)
+        return position
     }
 
     fun fetchTotalInvested() {
