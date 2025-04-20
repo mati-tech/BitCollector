@@ -39,6 +39,10 @@ class PositionRepos(private val positionDao: PositionDao) {
         positionDao.updatePosition(id, newPrice, newAmount, newTotalUsd)
     }
 
+    suspend fun updatehasDetails(positionId: Int, hasDetails: Boolean) {
+        positionDao.updateHasDetails(positionId, hasDetails)
+    }
+
     suspend fun getCurrentPriceFromApi(symbols: List<String>): List<CryptoResponse> {
         val allCoins = RetrofitInstance.api.getCoinPrices()
         return allCoins.filter { coin -> symbols.contains(coin.symbol) }

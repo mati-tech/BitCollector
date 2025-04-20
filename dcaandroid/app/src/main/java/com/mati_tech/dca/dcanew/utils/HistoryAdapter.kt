@@ -68,6 +68,7 @@ class HistoryAdapter(
         private val sellDate: TextView = itemView.findViewById(R.id.sellDateHistory)
         private val tvProfitLoss: TextView = itemView.findViewById(R.id.tvProfitLossHistory)
         private val editbtn: ImageView = itemView.findViewById(R.id.edit_position_history)
+        private val detailed: TextView = itemView.findViewById(R.id.DetailedStatus)
 
         private fun formatDate(timestamp: Long?): String {
             return if (timestamp != null) {
@@ -88,6 +89,10 @@ class HistoryAdapter(
             sellDate.text = "Sell Date: \n${formatDate(position.selltimestamp)}"
             tvProfitLoss.text = "Profit/Loss: ${position.positionPnl}"
 
+            if (position.hasDetails){
+                detailed.visibility = View.VISIBLE
+                detailed.text = "*"
+            }
             editbtn.setOnClickListener {
                 showEditPositionDialog(itemView.context, position)
             }

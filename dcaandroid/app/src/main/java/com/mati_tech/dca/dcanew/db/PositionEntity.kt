@@ -1,6 +1,7 @@
 package com.mati_tech.dca.dcanew.db
 
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -11,6 +12,8 @@ data class PositionEntity(
     val buyPrice: Double,
     val amount: Double,
     val valueUsd: Double,
+    @ColumnInfo(defaultValue = "0")
+    val hasDetails: Boolean = false,
     val sellPrice: Double? = null,
     val positionPnl: Double = 0.0,
     val buytimestamp: Long = System.currentTimeMillis(),

@@ -8,6 +8,9 @@ interface PositionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPosition(position: PositionEntity)
 
+    @Query("UPDATE positions SET hasDetails = :hasDetails WHERE id = :positionId")
+    suspend fun updateHasDetails(positionId: Int, hasDetails: Boolean)
+
     @Query("SELECT * FROM positions WHERE sellPrice IS NULL ORDER BY buytimestamp DESC")
     suspend fun getAllPositions(): List<PositionEntity>
 

@@ -35,13 +35,23 @@
             android:layout_weight="1"
             android:textSize="14sp"
             android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Detailed"
+            android:id="@+id/DetailedStatus"
+            android:textColor="@color/main3"
+            android:gravity="center"
+            android:visibility="gone"
+            android:background="@color/yellow"
+            android:layout_weight="1">
+        </TextView>
+
         <ImageView
             android:layout_width="20dp"
             android:id="@+id/edit_position_history"
             android:src="@drawable/baseline_edit_24"
-            android:layout_height="20dp"
-
-            >
+            android:layout_height="20dp">
 
         </ImageView>
 

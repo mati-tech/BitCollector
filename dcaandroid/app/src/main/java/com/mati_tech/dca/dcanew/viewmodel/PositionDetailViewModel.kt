@@ -16,7 +16,8 @@ class PositionDetailViewModel(private val repository: PositionDetailRepos) : Vie
     private val _totalPnl = MutableLiveData<Double>()
     val totalPnl: LiveData<Double> = _totalPnl
 
-    private var currentPrice: Double = 0.0
+    var positionDetailcurrentPrice: Double = 0.0
+    var positionDetailpnl : Double = 0.0
 
 
     private val _availableUsd = MutableLiveData<Double>()
@@ -39,11 +40,13 @@ class PositionDetailViewModel(private val repository: PositionDetailRepos) : Vie
 
 
     fun updatePriceAndCalculatePnl(newPrice: Double, positionId: Int) {
-        currentPrice = newPrice
+        positionDetailcurrentPrice = newPrice
         viewModelScope.launch {
             val realized = repository.getRealizedPnL(positionId)
-            val unrealized = repository.getUnrealizedPnL(positionId, currentPrice)
+            val unrealized = repository.getUnrealizedPnL(positionId, positionDetailcurrentPrice)
             _totalPnl.value = realized + unrealized
+            positionDetailpnl = realized + unrealized
+
         }
     }
     fun insertTrade(trade: PositionDetailEntity) {
@@ -140,9 +143,11 @@ class PositionDetailViewModel(private val repository: PositionDetailRepos) : Vie
             _availableUsd.postValue(usd)
             _currentHeldAmount.postValue(repository.getCurrentHeldAmount(positionId))
             _averageBuyPrice.postValue(repository.getBreakEvenPrice(positionId))
-            _totalPnl.postValue(repository.getTotalPnL(positionId, currentPrice))
+            _totalPnl.postValue(repository.getTotalPnL(positionId, positionDetailcurrentPrice))
         }
     }
+
+
 
     fun fetchBalances(positionId: Int) {
         updateBalances(positionId)

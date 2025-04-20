@@ -72,7 +72,7 @@ class OngoingPositions : AppCompatActivity() {
                 arbPrice = pricesList.find { it.symbol.contains("ARBUSDT") }?.price?.toDouble() ?: 0.0
                 solPrice = pricesList.find { it.symbol.contains("SOLUSDT") }?.price?.toDouble() ?: 0.0
                 aptPrice = pricesList.find { it.symbol.contains("APTUSDT") }?.price?.toDouble() ?: 0.0
-                enaPrice = pricesList.find { it.symbol.contains("APTUSDT") }?.price?.toDouble() ?: 0.0
+                enaPrice = pricesList.find { it.symbol.contains("ENAUSDT") }?.price?.toDouble() ?: 0.0
 
 //                binding.currentprice.text =
 //                    "BTC: $btcPrice$ ---- LTC: $ltcPrice$\n"+
