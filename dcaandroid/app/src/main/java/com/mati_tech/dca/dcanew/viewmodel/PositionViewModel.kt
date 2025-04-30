@@ -2,8 +2,7 @@ package com.mati_tech.dca.dcanew.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.mati_tech.dca.dcanew.db.PositionDao
-import com.mati_tech.dca.dcanew.db.PositionEntity
+import com.mati_tech.dca.dcanew.dao.PositionEntity
 import com.mati_tech.dca.dcanew.remote.CryptoResponse
 import com.mati_tech.dca.dcanew.repos.PositionRepos
 import kotlinx.coroutines.Job
@@ -98,6 +97,5 @@ class PositionViewModel(private val repository: PositionRepos) : ViewModel() {
             fetchTotalInvested()
         }
     }
-
 
 }

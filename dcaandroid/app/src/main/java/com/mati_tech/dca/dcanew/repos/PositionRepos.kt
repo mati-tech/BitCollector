@@ -1,13 +1,9 @@
 package com.mati_tech.dca.dcanew.repos
 
-import android.content.Context
-import com.mati_tech.dca.dcanew.db.AppDatabase
-import com.mati_tech.dca.dcanew.db.PositionDao
-import com.mati_tech.dca.dcanew.db.PositionEntity
+import com.mati_tech.dca.dcanew.dao.PositionDao
+import com.mati_tech.dca.dcanew.dao.PositionEntity
 import com.mati_tech.dca.dcanew.remote.CryptoResponse
 import com.mati_tech.dca.dcanew.remote.RetrofitInstance
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
 
 
 class PositionRepos(private val positionDao: PositionDao) {

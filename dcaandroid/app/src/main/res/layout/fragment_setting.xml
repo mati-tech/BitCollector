@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".dcanew.ui.fragments.home.FragmentSetting">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_margin="15dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView6"
+            android:gravity="center"
+            android:layout_width="126dp"
+            android:layout_weight="10"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Settings" />
+
+        <ImageView
+            android:id="@+id/SettingFragment_Signout_Btn"
+            android:layout_gravity="end"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_weight="1"
+            android:src="@drawable/a10_logout" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/b1_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/Setting_to_Theme"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text6"
+                android:layout_width="205dp"
+                android:layout_height="22dp"
+                android:layout_gravity="start"
+                android:layout_weight="10"
+                android:paddingLeft="25dp"
+
+                android:text="Light/Dark Theme"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imagesss"
+                android:layout_width="9.5dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:src="@drawable/b1_arrow_right" />
+
+
+        </LinearLayout>
+
+
+
+        <ImageView
+            android:id="@+id/imageview22asfsad2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/b1_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="18dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textssss6"
+                android:layout_width="205dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:layout_weight="10"
+                android:paddingLeft="25dp"
+                android:text="Social Sites"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/Setting_to_Telegram_logo"
+                android:layout_width="9.5dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/a11_tg" />
+            <ImageView
+                android:id="@+id/Setting_to_insta_logo"
+                android:layout_width="9.5dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:src="@drawable/a11_insta" />
+
+
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/imageviewasfd222"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/b1_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="18dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textssds6"
+                android:layout_width="205dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:layout_weight="10"
+                android:paddingLeft="25dp"
+                android:text="Contact Support"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/Setting_to_Telegram_logo2"
+                android:layout_width="9.5dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:src="@drawable/a11_tg" />
+
+
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/imageview22asdf2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/b1_line" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="18dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/Setting_to_About_us"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textsscs6"
+                android:layout_width="205dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:layout_weight="10"
+                android:paddingLeft="25dp"
+                android:text="About Us"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imagessdsss"
+                android:layout_width="9.5dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:src="@drawable/b1_arrow_right" />
+
+
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/imageview2dgf22"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/b1_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="18dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textssef6"
+                android:layout_width="205dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:layout_weight="10"
+                android:paddingLeft="25dp"
+                android:text="App Version"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/imagessfsss"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:text="2.4"
+                android:textStyle="bold"
+                android:layout_weight="1" />
+
+
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/imageview22asfg2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/b1_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="18dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/Setting_to_Delete_Account"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/texts6"
+                android:layout_width="205dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:layout_weight="10"
+                android:textColor="@color/red"
+                android:text="Delete Account"
+                android:textSize="18sp"
+                android:paddingLeft="25dp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imagessdfgfss"
+                android:layout_width="9.5dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:src="@drawable/b1_arrow_right" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageview222"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/b1_line" />
+
+    </LinearLayout>
+
+</LinearLayout>

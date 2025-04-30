@@ -6,7 +6,7 @@
 ////import android.view.ViewGroup
 ////import android.widget.TextView
 ////import androidx.recyclerview.widget.RecyclerView
-////import com.mati_tech.dca.dcanew.db.PositionDetailEntity
+////import com.mati_tech.dca.dcanew.dao.PositionDetailEntity
 ////import com.mati_tech.dca.R  // Ensure you have this import for your resources
 ////
 ////class PositionDetailAdapter() : RecyclerView.Adapter<PositionDetailAdapter.PDetailViewHolder>() {
@@ -54,7 +54,7 @@
 //import android.view.ViewGroup
 //import android.widget.TextView
 //import androidx.recyclerview.widget.RecyclerView
-//import com.mati_tech.dca.dcanew.db.PositionDetailEntity
+//import com.mati_tech.dca.dcanew.dao.PositionDetailEntity
 //import com.mati_tech.dca.R
 //
 //class PositionDetailAdapter(private val trades: List<PositionDetailEntity>) : RecyclerView.Adapter<PositionDetailAdapter.PDetailViewHolder>() {
@@ -102,7 +102,7 @@
 //import android.view.ViewGroup
 //import android.widget.TextView
 //import androidx.recyclerview.widget.RecyclerView
-//import com.mati_tech.dca.dcanew.db.PositionDetailEntity
+//import com.mati_tech.dca.dcanew.dao.PositionDetailEntity
 //import com.mati_tech.dca.R
 //
 //class PositionDetailAdapter(
@@ -166,7 +166,7 @@
 //import androidx.lifecycle.LiveData
 //import androidx.recyclerview.widget.RecyclerView
 //import com.mati_tech.dca.R
-//import com.mati_tech.dca.dcanew.db.PositionDetailEntity
+//import com.mati_tech.dca.dcanew.dao.PositionDetailEntity
 //import com.mati_tech.dca.dcanew.viewmodel.PositionDetailViewModel
 //
 //class PositionDetailAdapter(
@@ -248,7 +248,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mati_tech.dca.R
-import com.mati_tech.dca.dcanew.db.PositionDetailEntity
+import com.mati_tech.dca.dcanew.dao.PositionDetailEntity
 
 class PositionDetailAdapter (private val onTradeClickListener: OnTradeClickListener? = null) : RecyclerView.Adapter<PositionDetailAdapter.PositionDetailViewHolder>() {
 

@@ -1,8 +1,8 @@
 //package com.mati_tech.dca.dcanew.repos
 //
 //import androidx.lifecycle.LiveData
-//import com.mati_tech.dca.dcanew.db.PositionDetailDao
-//import com.mati_tech.dca.dcanew.db.PositionDetailEntity
+//import com.mati_tech.dca.dcanew.dao.PositionDetailDao
+//import com.mati_tech.dca.dcanew.dao.PositionDetailEntity
 //
 //class PositionDetailRepos(private val dao: PositionDetailDao) {
 //
@@ -92,8 +92,8 @@
 //package com.mati_tech.dca.dcanew.repos
 //
 //import androidx.lifecycle.LiveData
-//import com.mati_tech.dca.dcanew.db.PositionDetailDao
-//import com.mati_tech.dca.dcanew.db.PositionDetailEntity
+//import com.mati_tech.dca.dcanew.dao.PositionDetailDao
+//import com.mati_tech.dca.dcanew.dao.PositionDetailEntity
 //
 //class PositionDetailRepos(private val dao: PositionDetailDao) {
 //
@@ -144,8 +144,8 @@
 package com.mati_tech.dca.dcanew.repos
 
 import androidx.lifecycle.LiveData
-import com.mati_tech.dca.dcanew.db.PositionDetailDao
-import com.mati_tech.dca.dcanew.db.PositionDetailEntity
+import com.mati_tech.dca.dcanew.dao.PositionDetailDao
+import com.mati_tech.dca.dcanew.dao.PositionDetailEntity
 
 class PositionDetailRepos(private val dao: PositionDetailDao) {
 

@@ -17,22 +17,31 @@
         android:theme="@style/Theme.Dca"
         tools:targetApi="31">
         <activity
-            android:name=".dcanew.ui.UserProfile"
+            android:name=".dcanew.ui.activities.activitiesUI.AdminActivityUI"
             android:exported="false" />
         <activity
-            android:name=".dcanew.ui.OngoingPositions"
+            android:name=".dcanew.ui.activities.activitiesUI.AuthActivityUI"
             android:exported="false" />
         <activity
-            android:name=".dcanew.ui.PositionDetail"
+            android:name=".dcanew.ui.activities.UserProfile"
             android:exported="false" />
         <activity
-            android:name=".dcanew.ui.PositionHistory"
+            android:name=".dcanew.ui.activities.OngoingPositions"
             android:exported="false" />
         <activity
-            android:name=".olddca.MainActivity"
+            android:name=".dcanew.ui.activities.PositionDetail"
             android:exported="false" />
         <activity
-            android:name=".dcanew.ui.BitCollector"
+            android:name=".dcanew.ui.activities.PositionHistory"
+            android:exported="false" />
+        <activity
+            android:name=".olddca.MainActivityOLD"
+            android:exported="false" />
+        <activity
+            android:name=".dcanew.ui.activities.activitiesUI.MainActivityUI"
+            android:exported="false" />
+        <activity
+            android:name=".dcanew.ui.activities.BitCollector"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

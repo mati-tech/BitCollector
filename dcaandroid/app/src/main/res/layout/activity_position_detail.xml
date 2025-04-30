@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="6dp"
-    tools:context=".dcanew.ui.PositionDetail">
+    tools:context=".dcanew.ui.activities.PositionDetail">
 
     <!-- Summary Section -->
     <androidx.cardview.widget.CardView
