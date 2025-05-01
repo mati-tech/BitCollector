@@ -1,5 +1,6 @@
 package com.mati_tech.dca.dcanew.ui.fragments.home
 
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -43,12 +44,14 @@ class FragmentSetting : Fragment() {
             it.findNavController().navigate(R.id.action_fragmentSetting_to_fragmentDeleteAccount)
         }
         binding.SettingFragmentSignoutBtn.setOnClickListener{
-            var intent = Intent (context, AuthActivityUI::class.java)
+
+            signOut()
+//            var intent = Intent (context, AuthActivityUI::class.java)
 
             // here to go to the other activity to a certain fragment
 //            intent.putExtra("navigate_to", "login")
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
+//            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//            startActivity(intent)
 //            requireActivity().finish()
         }
         return binding.root
@@ -66,4 +69,21 @@ class FragmentSetting : Fragment() {
 
         dialog.show()
     }
+    private fun signOut() {
+        // Remove the token from SharedPreferences
+        val sharedPreferences = requireContext().getSharedPreferences("UserPrefs", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.remove("AUTH_TOKEN")  // Remove the stored token
+        editor.remove("UID")
+        editor.remove("email")
+        editor.remove("FULLNAME")
+        editor.apply()  // Commit the changes
+
+        // Navigate to the login screen
+        val intent = Intent(requireContext(), AuthActivityUI::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        activity?.finish()  // Close MainActivity to prevent returning back to logged-in screen
+    }
+
 }

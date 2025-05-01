@@ -1,6 +1,7 @@
 package com.mati_tech.dca.dcanew.ui.fragments.home
 
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
@@ -21,23 +22,32 @@ import androidx.lifecycle.ViewModelProvider
 import com.mati_tech.dca.databinding.FragmentHomeBinding
 import com.mati_tech.dca.dcanew.db.AppDatabase
 import com.mati_tech.dca.dcanew.dao.PositionEntity
-import com.mati_tech.dca.dcanew.remote.CryptoResponse
-import com.mati_tech.dca.dcanew.repos.PositionRepos
+import com.mati_tech.dca.dcanew.remoteApi.client.ApiClient
+import com.mati_tech.dca.dcanew.remoteApi.cryptodata.CryptoResponse
+import com.mati_tech.dca.dcanew.remoteApi.repos.PositionRepos
+import com.mati_tech.dca.dcanew.remoteApi.repos.UserRepos
 import com.mati_tech.dca.dcanew.ui.activities.OngoingPositions
 import com.mati_tech.dca.dcanew.ui.activities.UserProfile
+import com.mati_tech.dca.dcanew.ui.activities.activitiesUI.AuthActivityUI
 import com.mati_tech.dca.dcanew.ui.activities.activitiesUI.MainActivityUI
 import com.mati_tech.dca.dcanew.utils.PositionAdapter
 import com.mati_tech.dca.dcanew.viewmodel.PositionViewModel
 import com.mati_tech.dca.dcanew.viewmodel.PositionViewModelFactory
+import com.mati_tech.dca.dcanew.viewmodel.UserViewModel
+import com.mati_tech.dca.dcanew.viewmodel.UserViewModelFactory
 
 
 class FragmentHome : Fragment() {
     private lateinit var viewModel: PositionViewModel
+    private lateinit var userviewModel: UserViewModel
     private lateinit var adapter: PositionAdapter
     private lateinit var sharedPreferences: SharedPreferences
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var repos: PositionRepos
+
+    private lateinit var token :String
+    private lateinit var email : String
 
     private val pricesList = mutableListOf<CryptoResponse>()
     private var btcPrice : Double = 0.0
@@ -52,12 +62,38 @@ class FragmentHome : Fragment() {
     private var aptPrice : Double = 0.0
     private var enaPrice: Double = 0.0
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         // Inflate the layout for this fragment
+
+        sharedPreferences = requireContext().getSharedPreferences("UserPrefs", MODE_PRIVATE)
+        token = sharedPreferences.getString("AUTH_TOKEN", "-")!!
+        email = sharedPreferences.getString("email", "-")!!
+
+
+
+        if (token == null) {
+            // No token found, user is not logged in, redirect to Login screen
+            val intent = Intent(requireContext(), AuthActivityUI::class.java)
+            startActivity(intent)
+            activity?.finish()  // Finish MainActivity to prevent going back to the logged-in screen
+        } else {
+            // Token exists, user is logged in, continue to the main screen
+            // This can be where you set up your main UI or dashboard
+        }
+
+        val repos = UserRepos(ApiClient.userApiService)
+        val factory = UserViewModelFactory(repos)
+        userviewModel = ViewModelProvider(this, factory)[UserViewModel::class.java]
+
         return binding.root
     }
 
@@ -66,7 +102,7 @@ class FragmentHome : Fragment() {
 
         val db = AppDatabase.getDatabase(requireContext())
         sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
-
+        defineUser(token,  email)
         var balance = sharedPreferences.getFloat("balance", 0.0f)
         val formattedBalance = String.format("%.4f", balance)
         binding.TotalMoneyInCrypto.text = "Total Balance: $formattedBalance$"
@@ -159,6 +195,18 @@ class FragmentHome : Fragment() {
         }
     }
 
+    private fun defineUser(token: String, email: String) {
+        userviewModel.fetchUserByEmail(token, email)
+        userviewModel.userDetails.observe(viewLifecycleOwner){user ->
+            if (user != null){
+                val editor = sharedPreferences.edit()
+                user.id?.let { editor.putInt("UID", it) }
+                editor.putString("FULLNAME", user.full_name)
+                editor.apply()
+            }
+        }
+    }
+
 
     private fun showDeletePositionConfirmationBox(position: PositionEntity) {
         val builder = AlertDialog.Builder(requireContext())
@@ -190,7 +238,6 @@ class FragmentHome : Fragment() {
             }
         }
     }
-
 
     private fun showClosePositionDialog(position: PositionEntity) {
         val builder = AlertDialog.Builder(requireContext())

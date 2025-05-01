@@ -30,25 +30,46 @@
             />
 
         <TextView
-            android:id="@+id/user_nickname"
+            android:id="@+id/User_FullName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/profile_image"
             android:layout_marginStart="16dp"
-            android:text="Nickname"
+            android:layout_toEndOf="@id/profile_image"
+            android:text="-"
+            android:textColor="@color/main3"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/main3"/>
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/User_Email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@id/profile_image"
+            android:layout_below="@id/User_FullName"
+            android:text="-"
+            android:textColor="@color/main3"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/User_UID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@id/profile_image"
+            android:layout_below="@id/User_Email"
+            android:text="-"
+            android:textColor="@color/main3"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/edit_profile"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
             android:src="@drawable/baseline_edit_24"
-            app:tint="@color/main3"
-            />
+            app:tint="@color/main3" />
     </RelativeLayout>
 
     <!-- Money Section -->

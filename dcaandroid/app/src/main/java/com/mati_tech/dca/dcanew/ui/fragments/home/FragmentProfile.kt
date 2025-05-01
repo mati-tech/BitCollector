@@ -13,13 +13,20 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModelProvider
 import com.mati_tech.dca.R
 import com.mati_tech.dca.databinding.FragmentProfileBinding
+import com.mati_tech.dca.dcanew.remoteApi.client.ApiClient
+import com.mati_tech.dca.dcanew.remoteApi.repos.UserRepos
+import com.mati_tech.dca.dcanew.viewmodel.UserViewModel
+import com.mati_tech.dca.dcanew.viewmodel.UserViewModelFactory
 
 
 class FragmentProfile : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: FragmentProfileBinding
+
+    private lateinit var viewModel: UserViewModel
 
 
     override fun onCreateView(
@@ -28,6 +35,9 @@ class FragmentProfile : Fragment() {
     ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         // Inflate the layout for this fragment
+        val repos = UserRepos(ApiClient.userApiService)
+        val factory = UserViewModelFactory(repos)
+        viewModel = ViewModelProvider(this, factory)[UserViewModel::class.java]
         return binding.root
     }
 
@@ -41,12 +51,23 @@ class FragmentProfile : Fragment() {
         val add20Button = binding.btnAdd20
         val updateBalanceButton = binding.btnDepositBalance
         val updatewithdrawButton = binding.btnWithdrawBalance
+        val userEmailTextView = binding.UserEmail
+        val userUIDTextView = binding.UserUID
+        val userFullNameTextView = binding.UserFullName
+
 
         // Load stored balance and nickname
         val balance = sharedPreferences.getFloat("balance", 0.0f)
-        val nickname = sharedPreferences.getString("nickname", "Nickname")
+        val email = sharedPreferences.getString("email", "email")!!
+        val token = sharedPreferences.getString("AUTH_TOKEN", "SomeToken")!!
+        val uid = sharedPreferences.getInt("UID", -1)
+        val fullname = sharedPreferences.getString("FULLNAME", "-")
         balanceTextView.text = "$${String.format("%.2f", balance)}"
-        binding.userNickname.text = nickname
+        userEmailTextView.text = "Email: $email"
+        userUIDTextView.text = "UID: $uid"
+        userFullNameTextView.text = "Full Name: $fullname"
+
+
 
         // Add $10
         add10Button.setOnClickListener {
@@ -102,7 +123,7 @@ class FragmentProfile : Fragment() {
                     putString("nickname", enteredNickname)
                     apply()
                 }
-                binding.userNickname.text = enteredNickname
+//                binding.userNickname.text = enteredNickname
             } else {
                 Toast.makeText(requireContext(), "Invalid nickname", Toast.LENGTH_SHORT).show()
             }

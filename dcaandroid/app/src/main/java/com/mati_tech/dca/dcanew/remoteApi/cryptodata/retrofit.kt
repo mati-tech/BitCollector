@@ -1,6 +1,5 @@
-package com.mati_tech.dca.dcanew.remote
+package com.mati_tech.dca.dcanew.remoteApi.cryptodata
 
-import com.mati_tech.dca.olddca.BinanceApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -14,4 +13,5 @@ object RetrofitInstance {
             .build()
             .create(CryptoApi::class.java)
     }
+
 }

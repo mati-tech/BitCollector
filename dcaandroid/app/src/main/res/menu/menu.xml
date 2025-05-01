@@ -3,27 +3,27 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/bottom_nav_home"
+        android:id="@+id/fragmentHome"
         android:icon="@drawable/bitcoinlogo"
         android:title="Home" />
 
     <item
-        android:id="@+id/bottom_nav_positions"
+        android:id="@+id/fragmentPositions"
         android:icon="@drawable/dashboard"
         android:title="Positions" />
 
     <item
-        android:id="@+id/bottom_nav_profile"
+        android:id="@+id/fragmentProfile"
         android:icon="@drawable/baseline_person_24"
         android:title="Profile" />
 
     <item
-        android:id="@+id/bottom_nav_history"
+        android:id="@+id/fragmentHistory"
         android:icon="@drawable/baseline_history_24"
         android:title="History" />
 
     <item
-        android:id="@+id/bottom_nav_setting"
+        android:id="@+id/fragmentSetting"
         android:icon="@drawable/a5_main_settings"
         android:title="Setting" />
 

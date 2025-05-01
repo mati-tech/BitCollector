@@ -1,8 +1,6 @@
-package com.mati_tech.dca.dcanew.remote
+package com.mati_tech.dca.dcanew.remoteApi.cryptodata
 
-import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Query
 
 interface CryptoApi {
     @GET("api/v3/ticker/price")

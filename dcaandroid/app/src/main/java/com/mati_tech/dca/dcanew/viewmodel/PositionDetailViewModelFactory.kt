@@ -2,7 +2,7 @@ package com.mati_tech.dca.dcanew.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.mati_tech.dca.dcanew.repos.PositionDetailRepos
+import com.mati_tech.dca.dcanew.remoteApi.repos.PositionDetailRepos
 
 class PositionDetailViewModelFactory(
     private val repository: PositionDetailRepos

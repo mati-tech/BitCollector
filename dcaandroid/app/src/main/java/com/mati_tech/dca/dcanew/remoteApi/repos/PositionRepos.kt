@@ -1,9 +1,9 @@
-package com.mati_tech.dca.dcanew.repos
+package com.mati_tech.dca.dcanew.remoteApi.repos
 
 import com.mati_tech.dca.dcanew.dao.PositionDao
 import com.mati_tech.dca.dcanew.dao.PositionEntity
-import com.mati_tech.dca.dcanew.remote.CryptoResponse
-import com.mati_tech.dca.dcanew.remote.RetrofitInstance
+import com.mati_tech.dca.dcanew.remoteApi.cryptodata.CryptoResponse
+import com.mati_tech.dca.dcanew.remoteApi.cryptodata.RetrofitInstance
 
 
 class PositionRepos(private val positionDao: PositionDao) {

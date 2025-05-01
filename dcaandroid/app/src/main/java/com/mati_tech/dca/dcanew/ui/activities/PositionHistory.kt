@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mati_tech.dca.databinding.ActivityPositionHistoryBinding
 import com.mati_tech.dca.dcanew.db.AppDatabase
-import com.mati_tech.dca.dcanew.repos.PositionRepos
+import com.mati_tech.dca.dcanew.remoteApi.repos.PositionRepos
 import com.mati_tech.dca.dcanew.utils.HistoryAdapter
 import com.mati_tech.dca.dcanew.viewmodel.HistoryViewModel
 import com.mati_tech.dca.dcanew.viewmodel.HistoryViewModelFactory

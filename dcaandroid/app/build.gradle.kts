@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     kotlin("kapt") // Add KAPT for Room
     id ("androidx.navigation.safeargs.kotlin")
+    kotlin("plugin.serialization") version "1.9.0"
 }
 
 android {
@@ -89,8 +90,10 @@ dependencies {
     // Gson (optional for serialization/deserialization)
     implementation("com.google.code.gson:gson:2.8.8")
 
-
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
 //    implementation(libs.glide)
-
+    implementation("io.ktor:ktor-client-okhttp:2.3.4") // Use latest version
+    implementation("io.ktor:ktor-client-content-negotiation:2.3.4")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.4")
 //    kapt(libs.compiler)
 }

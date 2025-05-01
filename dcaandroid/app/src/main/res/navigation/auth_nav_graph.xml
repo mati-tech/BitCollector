@@ -21,7 +21,11 @@
         android:id="@+id/fragmentSignup"
         android:name="com.mati_tech.dca.dcanew.ui.fragments.auth.FragmentSignup"
         android:label="fragment_signup"
-        tools:layout="@layout/fragment_signup" />
+        tools:layout="@layout/fragment_signup" >
+        <action
+            android:id="@+id/action_fragmentSignup_to_fragmentLogin"
+            app:destination="@id/fragmentLogin" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentForgotPassword"
         android:name="com.mati_tech.dca.dcanew.ui.fragments.auth.FragmentForgotPassword"
