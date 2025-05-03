@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnLongClickListener
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
@@ -14,9 +13,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.mati_tech.dca.R
-import com.mati_tech.dca.dcanew.db.PositionEntity
+import com.mati_tech.dca.dcanew.dao.PositionEntity
 import com.mati_tech.dca.dcanew.viewmodel.HistoryViewModel
-import com.mati_tech.dca.dcanew.viewmodel.PositionViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -5,6 +5,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.mati_tech.dca.dcanew.dao.PositionDao
+import com.mati_tech.dca.dcanew.dao.PositionDetailDao
+import com.mati_tech.dca.dcanew.dao.PositionDetailEntity
+import com.mati_tech.dca.dcanew.dao.PositionEntity
 
 @Database(entities = [PositionEntity::class, PositionDetailEntity::class], version = 7)
 abstract class AppDatabase : RoomDatabase() {

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".dcanew.ui.fragments.settings.FragmentTheme">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_margin="15dp"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/SettingTheme_back_arrow"
+            android:layout_gravity="start"
+            android:layout_width="9.5dp"
+            android:layout_weight="1"
+            android:layout_height="20dp"
+            android:src="@drawable/a6_main_back_arrow" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:gravity="center"
+            android:layout_width="126dp"
+            android:layout_weight="12"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Theme" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/b1_line" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_margin="20dp"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/SettingTheme_dark_theme_text"
+            android:layout_width="205dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:paddingLeft="25dp"
+            android:layout_weight="10"
+            android:text="Dark mode"
+
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.026" />
+
+        <ImageView
+            android:id="@+id/imageView65"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/b1_line"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.18" />
+
+
+        <TextView
+            android:id="@+id/SettingTheme_light_theme_text"
+            android:layout_width="205dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:paddingLeft="25dp"
+            android:layout_weight="10"
+            android:text="Light mode"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.128" />
+
+        <ImageView
+            android:id="@+id/imageView645"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/b1_line"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.102" />
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.02" >
+
+            <RadioButton
+                android:id="@+id/SettingTheme_dark_theme_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                tools:layout_editor_absoluteX="292dp"
+                tools:layout_editor_absoluteY="20dp" />
+
+            <RadioButton
+                android:id="@+id/SettingTheme_light_theme_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                tools:layout_editor_absoluteX="292dp"
+                tools:layout_editor_absoluteY="20dp" />
+
+        </RadioGroup>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+</LinearLayout>

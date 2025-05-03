@@ -7,14 +7,14 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:paddingBottom="16dp"
-    tools:context=".dcanew.ui.BitCollector">
+    tools:context=".dcanew.ui.activities.BitCollector">
 
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp"
     android:orientation="vertical"
-    tools:context=".dcanew.ui.BitCollector">
+    tools:context=".dcanew.ui.activities.BitCollector">
 
     <androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"

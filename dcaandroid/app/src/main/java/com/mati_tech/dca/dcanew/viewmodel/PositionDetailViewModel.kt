@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mati_tech.dca.dcanew.db.PositionDetailEntity
-import com.mati_tech.dca.dcanew.repos.PositionDetailRepos
+import com.mati_tech.dca.dcanew.dao.PositionDetailEntity
+import com.mati_tech.dca.dcanew.remoteApi.repos.old.PositionDetailRepos
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import java.math.RoundingMode

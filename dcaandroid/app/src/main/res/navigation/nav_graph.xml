@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/fragmentHome">
+
+    <fragment
+        android:id="@+id/fragmentHome"
+        android:name="com.mati_tech.dca.dcanew.ui.fragments.home.FragmentHome"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentHistory"
+            app:destination="@id/fragmentHistory" />
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentProfile"
+            app:destination="@id/fragmentProfile" />
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentPositions"
+            app:destination="@id/fragmentPositions" />
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentSetting"
+            app:destination="@id/fragmentSetting" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentProfile"
+        android:name="com.mati_tech.dca.dcanew.ui.fragments.home.FragmentProfile"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/fragmentPositions"
+        android:name="com.mati_tech.dca.dcanew.ui.fragments.home.FragmentPositions"
+        android:label="FragmentPositions" >
+        <action
+            android:id="@+id/action_fragmentPositions_to_fragmentPositionDetail"
+            app:destination="@id/fragmentPositionDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentSetting"
+        android:name="com.mati_tech.dca.dcanew.ui.fragments.home.FragmentSetting"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/action_fragmentSetting_to_fragmentAboutUs"
+            app:destination="@id/fragmentAboutUs" />
+        <action
+            android:id="@+id/action_fragmentSetting_to_fragmentTheme"
+            app:destination="@id/fragmentTheme" />
+        <action
+            android:id="@+id/action_fragmentSetting_to_fragmentDeleteAccount"
+            app:destination="@id/fragmentDeleteAccount" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentHistory"
+        android:name="com.mati_tech.dca.dcanew.ui.fragments.home.FragmentHistory"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
+    <fragment
+        android:id="@+id/fragmentAboutUs"
+        android:name="com.mati_tech.dca.dcanew.ui.fragments.settings.FragmentAboutUs"
+        android:label="fragment_about_us"
+        tools:layout="@layout/fragment_about_us" />
+    <fragment
+        android:id="@+id/fragmentPositionDetail"
+        android:name="com.mati_tech.dca.dcanew.ui.fragments.home.FragmentPositionDetail"
+        android:label="fragment_position_detail"
+        tools:layout="@layout/fragment_position_detail" />
+    <fragment
+        android:id="@+id/fragmentTheme"
+        android:name="com.mati_tech.dca.dcanew.ui.fragments.settings.FragmentTheme"
+        android:label="fragment_theme"
+        tools:layout="@layout/fragment_theme" />
+    <fragment
+        android:id="@+id/fragmentDeleteAccount"
+        android:name="com.mati_tech.dca.dcanew.ui.fragments.settings.FragmentDeleteAccount"
+        android:label="fragment_delete_account"
+        tools:layout="@layout/fragment_delete_account" />
+</navigation>

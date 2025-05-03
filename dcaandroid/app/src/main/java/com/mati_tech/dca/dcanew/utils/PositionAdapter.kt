@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mati_tech.dca.R
-import com.mati_tech.dca.dcanew.db.PositionEntity
+import com.mati_tech.dca.dcanew.dao.PositionEntity
 import com.mati_tech.dca.dcanew.viewmodel.PositionViewModel
 
 class PositionAdapter(
