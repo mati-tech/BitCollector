@@ -1,9 +1,9 @@
-package com.mati_tech.dca.dcanew.remoteApi.repos
+package com.mati_tech.dca.dcanew.remoteApi.repos.old
 
 import com.mati_tech.dca.dcanew.dao.PositionDao
 import com.mati_tech.dca.dcanew.dao.PositionEntity
 import com.mati_tech.dca.dcanew.remoteApi.cryptodata.CryptoResponse
-import com.mati_tech.dca.dcanew.remoteApi.cryptodata.RetrofitInstance
+import com.mati_tech.dca.dcanew.remoteApi.client.MexcApi
 
 
 class PositionRepos(private val positionDao: PositionDao) {
@@ -22,6 +22,8 @@ class PositionRepos(private val positionDao: PositionDao) {
     suspend fun getAllPositionsHistoryPlusPNL() = positionDao.getAllPositionsHistoryPlusPNL()
 
     suspend fun getAllPositionsHistoryNegativePNL() = positionDao.getAllPositionsHistoryNegativePNL()
+    suspend fun getTotalPositivePNL() = positionDao.getTotalPositivePnl()
+    suspend fun getTotalNegativePNL() = positionDao.getTotalNegativePnl()
 
     suspend fun clearAllPositions() = positionDao.deleteAllPositions()
 
@@ -40,7 +42,7 @@ class PositionRepos(private val positionDao: PositionDao) {
     }
 
     suspend fun getCurrentPriceFromApi(symbols: List<String>): List<CryptoResponse> {
-        val allCoins = RetrofitInstance.api.getCoinPrices()
+        val allCoins = MexcApi.api.getCoinPrices()
         return allCoins.filter { coin -> symbols.contains(coin.symbol) }
     }
 }

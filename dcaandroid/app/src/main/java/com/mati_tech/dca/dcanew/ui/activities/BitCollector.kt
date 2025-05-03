@@ -24,7 +24,7 @@ import com.mati_tech.dca.dcanew.remoteApi.cryptodata.CryptoResponse
 
 import com.mati_tech.dca.dcanew.viewmodel.PositionViewModel
 
-import com.mati_tech.dca.dcanew.remoteApi.repos.PositionRepos
+import com.mati_tech.dca.dcanew.remoteApi.repos.old.PositionRepos
 import com.mati_tech.dca.dcanew.ui.activities.activitiesUI.MainActivityUI
 import com.mati_tech.dca.dcanew.utils.PositionAdapter
 import com.mati_tech.dca.dcanew.viewmodel.PositionViewModelFactory

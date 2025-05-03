@@ -22,7 +22,7 @@
             android:name=".dcanew.ui.activities.activitiesUI.AdminActivityUI"
             android:exported="false" />
         <activity
-            android:name=".dcanew.ui.activities.activitiesUI.AuthActivityUI"
+            android:name=".dcanew.ui.activities.BitCollector"
             android:exported="false" />
         <activity
             android:name=".dcanew.ui.activities.UserProfile"
@@ -43,11 +43,10 @@
             android:name=".dcanew.ui.activities.activitiesUI.MainActivityUI"
             android:exported="false" />
         <activity
-            android:name=".dcanew.ui.activities.BitCollector"
+            android:name=".dcanew.ui.activities.activitiesUI.AuthActivityUI"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

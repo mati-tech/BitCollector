@@ -37,29 +37,29 @@
             android:layout_toEndOf="@id/profile_image"
             android:text="-"
             android:textColor="@color/main3"
-            android:textSize="20sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
         <TextView
             android:id="@+id/User_Email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="14sp"
             android:layout_toEndOf="@id/profile_image"
             android:layout_below="@id/User_FullName"
             android:text="-"
             android:textColor="@color/main3"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
         <TextView
             android:id="@+id/User_UID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="14sp"
             android:layout_toEndOf="@id/profile_image"
             android:layout_below="@id/User_Email"
             android:text="-"
             android:textColor="@color/main3"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <ImageView

@@ -26,6 +26,12 @@ interface PositionDao {
     @Query("SELECT * FROM positions WHERE sellPrice IS Not NULL and positionPnl < 0 ORDER BY buytimestamp DESC")
     suspend fun getAllPositionsHistoryNegativePNL(): List<PositionEntity>
 
+    @Query("SELECT SUM(positionPnl) FROM positions WHERE sellPrice IS NOT NULL AND positionPnl > 0")
+    suspend fun getTotalPositivePnl(): Double?
+
+    @Query("SELECT SUM(positionPnl) FROM positions WHERE sellPrice IS NOT NULL AND positionPnl < 0")
+    suspend fun getTotalNegativePnl(): Double?
+
     @Query("DELETE FROM positions")
     suspend fun deleteAllPositions()
     // New method to close a position by updating sellPrice and selltimestamp

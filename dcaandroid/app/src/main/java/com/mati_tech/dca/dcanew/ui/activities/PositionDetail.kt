@@ -16,8 +16,8 @@ import com.mati_tech.dca.databinding.ActivityPositionDetailBinding
 import com.mati_tech.dca.dcanew.db.AppDatabase
 import com.mati_tech.dca.dcanew.dao.PositionDetailEntity
 import com.mati_tech.dca.dcanew.dao.PositionEntity
-import com.mati_tech.dca.dcanew.remoteApi.repos.PositionDetailRepos
-import com.mati_tech.dca.dcanew.remoteApi.repos.PositionRepos
+import com.mati_tech.dca.dcanew.remoteApi.repos.old.PositionDetailRepos
+import com.mati_tech.dca.dcanew.remoteApi.repos.old.PositionRepos
 import com.mati_tech.dca.dcanew.utils.PositionDetailAdapter
 import com.mati_tech.dca.dcanew.viewmodel.PositionDetailViewModel
 import com.mati_tech.dca.dcanew.viewmodel.PositionDetailViewModelFactory
@@ -235,11 +235,6 @@ class PositionDetail : AppCompatActivity() {
 
         alertDialog.show()
     }
-
-
-
-
-
 
     override fun onResume() {
         super.onResume()

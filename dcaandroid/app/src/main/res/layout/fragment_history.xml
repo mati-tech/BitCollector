@@ -16,32 +16,48 @@
             android:layout_width="wrap_content"
             android:text="All Positions"
             android:textColor="@color/main3"
-
             android:id="@+id/allPostions"
-
-            android:layout_height="wrap_content">
-
-        </com.google.android.material.button.MaterialButton>
+            android:layout_height="wrap_content" />
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:text="+PNL"
             android:textColor="@color/main3"
-
             android:id="@+id/pluspnl"
-            android:layout_height="wrap_content">
-
-        </com.google.android.material.button.MaterialButton>
+            android:layout_height="wrap_content" />
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:text="-PNL"
             android:textColor="@color/main3"
             android:id="@+id/minusPnl"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
-        </com.google.android.material.button.MaterialButton>
+    <!-- NEW: Total PnL TextViews -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="8dp">
 
+        <TextView
+            android:id="@+id/total_plus_pnl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total +PNL: $0.00"
+            android:textStyle="bold"
+            android:textColor="#4CAF50"
+            android:paddingEnd="16dp" />
+
+        <TextView
+            android:id="@+id/total_minus_pnl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total -PNL: $0.00"
+            android:textStyle="bold"
+            android:textColor="#F44336" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -49,5 +65,4 @@
         android:id="@+id/history_recycler"
         android:padding="3dp"
         android:layout_height="match_parent" />
-
 </LinearLayout>

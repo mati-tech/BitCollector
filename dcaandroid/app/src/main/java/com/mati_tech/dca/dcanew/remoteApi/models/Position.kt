@@ -15,5 +15,4 @@ data class Position(
     val position_pnl: Double = 0.0,
     val buytimestamp: Long,
     val selltimestamp: Long? = null,
-
     )

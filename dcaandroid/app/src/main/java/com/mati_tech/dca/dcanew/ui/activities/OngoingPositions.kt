@@ -14,7 +14,7 @@ import com.mati_tech.dca.databinding.ActivityOngoingPositionsBinding
 import com.mati_tech.dca.dcanew.db.AppDatabase
 import com.mati_tech.dca.dcanew.dao.PositionEntity
 import com.mati_tech.dca.dcanew.remoteApi.cryptodata.CryptoResponse
-import com.mati_tech.dca.dcanew.remoteApi.repos.PositionRepos
+import com.mati_tech.dca.dcanew.remoteApi.repos.old.PositionRepos
 import com.mati_tech.dca.dcanew.utils.PositionAdapter
 import com.mati_tech.dca.dcanew.viewmodel.PositionViewModel
 import com.mati_tech.dca.dcanew.viewmodel.PositionViewModelFactory

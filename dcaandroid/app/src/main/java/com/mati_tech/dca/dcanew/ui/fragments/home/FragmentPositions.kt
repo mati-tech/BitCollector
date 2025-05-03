@@ -11,12 +11,14 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mati_tech.dca.R
 import com.mati_tech.dca.databinding.FragmentPositionsBinding
 import com.mati_tech.dca.dcanew.db.AppDatabase
 import com.mati_tech.dca.dcanew.dao.PositionEntity
 import com.mati_tech.dca.dcanew.remoteApi.cryptodata.CryptoResponse
-import com.mati_tech.dca.dcanew.remoteApi.repos.PositionRepos
+import com.mati_tech.dca.dcanew.remoteApi.repos.old.PositionRepos
 import com.mati_tech.dca.dcanew.ui.activities.PositionDetail
 import com.mati_tech.dca.dcanew.utils.PositionAdapter
 import com.mati_tech.dca.dcanew.viewmodel.PositionViewModel
@@ -116,15 +118,24 @@ class FragmentPositions : Fragment() {
             },
             onItemClick = { position ->
                 // Handle item click
-                Toast.makeText(requireContext(), "Clicked on: ${position.coin}", Toast.LENGTH_SHORT).show()
-                val intent = Intent ( requireContext(), PositionDetail::class.java)
-                intent.putExtra("coin_id", position.id)
-                intent.putExtra("coin_name", position.coin)
-                intent.putExtra("total_amount", position.amount.toString())
-                intent.putExtra("avg_buy_price", position.buyPrice.toString())
+
+                Toast.makeText(requireContext(), "Opening Details for: ${position.coin}", Toast.LENGTH_SHORT).show()
+
+                val bundle = Bundle().apply {
+                    putInt("coin_id", position.id)
+                    putString("coin_name", position.coin)
+                    putString("total_amount", position.amount.toString())
+                    putString("avg_buy_price", position.buyPrice.toString())
+                }
+//                val intent = Intent ( requireContext(), PositionDetail::class.java)
+//                intent.putExtra("coin_id", position.id)
+//                intent.putExtra("coin_name", position.coin)
+//                intent.putExtra("total_amount", position.amount.toString())
+//                intent.putExtra("avg_buy_price", position.buyPrice.toString())
 //                intent.putExtra("realized_pnl", position.realizedPnL.toString())
 //                intent.putExtra("unrealized_pnl", position.unrealizedPnL.toString())
-                startActivity(intent)
+//                startActivity(intent)
+                findNavController().navigate(R.id.action_fragmentPositions_to_fragmentPositionDetail, bundle)
                 // Or navigate to details screen
             }
 

@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -15,8 +13,7 @@ import com.mati_tech.dca.R
 import com.mati_tech.dca.databinding.FragmentSignupBinding
 import com.mati_tech.dca.dcanew.remoteApi.client.ApiClient
 import com.mati_tech.dca.dcanew.remoteApi.models.User
-import com.mati_tech.dca.dcanew.remoteApi.repos.UserRepos
-import com.mati_tech.dca.dcanew.remoteApi.services.UserApiService
+import com.mati_tech.dca.dcanew.remoteApi.repos.UserReposRemote
 import com.mati_tech.dca.dcanew.viewmodel.UserViewModel
 import com.mati_tech.dca.dcanew.viewmodel.UserViewModelFactory
 
@@ -38,7 +35,7 @@ class FragmentSignup : Fragment() {
     ): View {
         binding = FragmentSignupBinding.inflate(inflater, container, false)
 
-        val repos = UserRepos(ApiClient.userApiService)
+        val repos = UserReposRemote(ApiClient.userApiService)
         val factory = UserViewModelFactory(repos)
         viewModel = ViewModelProvider(this, factory)[UserViewModel::class.java]
 

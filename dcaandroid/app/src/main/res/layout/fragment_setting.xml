@@ -55,7 +55,7 @@
             <TextView
                 android:id="@+id/text6"
                 android:layout_width="205dp"
-                android:layout_height="22dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_weight="10"
                 android:paddingLeft="25dp"
@@ -66,8 +66,8 @@
 
             <ImageView
                 android:id="@+id/imagesss"
-                android:layout_width="9.5dp"
-                android:layout_height="match_parent"
+                android:layout_width="10dp"
+                android:layout_height="20dp"
                 android:layout_gravity="end"
                 android:layout_weight="1"
                 android:src="@drawable/b1_arrow_right" />
@@ -135,7 +135,7 @@
             <TextView
                 android:id="@+id/textssds6"
                 android:layout_width="205dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_weight="10"
                 android:paddingLeft="25dp"
@@ -171,7 +171,7 @@
             <TextView
                 android:id="@+id/textsscs6"
                 android:layout_width="205dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_weight="10"
                 android:paddingLeft="25dp"
@@ -182,7 +182,7 @@
             <ImageView
                 android:id="@+id/imagessdsss"
                 android:layout_width="9.5dp"
-                android:layout_height="match_parent"
+                android:layout_height="20dp"
                 android:layout_gravity="end"
                 android:layout_weight="1"
                 android:src="@drawable/b1_arrow_right" />
@@ -241,7 +241,7 @@
             <TextView
                 android:id="@+id/texts6"
                 android:layout_width="205dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_weight="10"
                 android:textColor="@color/red"
@@ -253,7 +253,7 @@
             <ImageView
                 android:id="@+id/imagessdfgfss"
                 android:layout_width="9.5dp"
-                android:layout_height="match_parent"
+                android:layout_height="20dp"
                 android:layout_gravity="end"
                 android:layout_weight="1"
                 android:src="@drawable/b1_arrow_right" />

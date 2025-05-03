@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.mati_tech.dca.dcanew.dao.PositionEntity
 import com.mati_tech.dca.dcanew.remoteApi.cryptodata.CryptoResponse
-import com.mati_tech.dca.dcanew.remoteApi.repos.PositionRepos
+import com.mati_tech.dca.dcanew.remoteApi.repos.old.PositionRepos
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.*

@@ -16,7 +16,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/QR_tg_text"
+        android:text="Telegram Account"
         android:textSize="16sp"
         android:textColor="@android:color/black"
         android:gravity="center"

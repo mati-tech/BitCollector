@@ -4,9 +4,8 @@ import com.mati_tech.dca.dcanew.remoteApi.models.ApiResponse
 import com.mati_tech.dca.dcanew.remoteApi.models.User
 import com.mati_tech.dca.dcanew.remoteApi.models.UserLoginRequest
 import com.mati_tech.dca.dcanew.remoteApi.services.UserApiService
-import retrofit2.HttpException
 import retrofit2.Response
-class UserRepos(private val api: UserApiService){
+class UserReposRemote(private val api: UserApiService){
     suspend fun register(user: User): Response<ApiResponse> {
         return api.registerUser(user)
     }

@@ -141,7 +141,7 @@
 //        return dao.getLastTrade(positionId)
 //    }
 //}
-package com.mati_tech.dca.dcanew.remoteApi.repos
+package com.mati_tech.dca.dcanew.remoteApi.repos.old
 
 import androidx.lifecycle.LiveData
 import com.mati_tech.dca.dcanew.dao.PositionDetailDao

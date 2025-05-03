@@ -1,9 +1,10 @@
-package com.mati_tech.dca.dcanew.remoteApi.cryptodata
+package com.mati_tech.dca.dcanew.remoteApi.client
 
+import com.mati_tech.dca.dcanew.remoteApi.cryptodata.CryptoApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object RetrofitInstance {
+object MexcApi {
     private const val BASE_URL = "https://api.mexc.com/"
 
     val api: CryptoApi by lazy {

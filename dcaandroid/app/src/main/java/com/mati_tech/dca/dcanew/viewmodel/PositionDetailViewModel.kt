@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mati_tech.dca.dcanew.dao.PositionDetailEntity
-import com.mati_tech.dca.dcanew.remoteApi.repos.PositionDetailRepos
+import com.mati_tech.dca.dcanew.remoteApi.repos.old.PositionDetailRepos
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import java.math.RoundingMode

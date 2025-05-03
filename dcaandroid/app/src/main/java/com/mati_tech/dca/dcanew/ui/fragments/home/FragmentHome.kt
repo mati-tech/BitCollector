@@ -6,9 +6,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
-import android.text.Editable
 import android.text.InputType
-import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,17 +17,16 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import com.mati_tech.dca.R
 import com.mati_tech.dca.databinding.FragmentHomeBinding
 import com.mati_tech.dca.dcanew.db.AppDatabase
 import com.mati_tech.dca.dcanew.dao.PositionEntity
 import com.mati_tech.dca.dcanew.remoteApi.client.ApiClient
 import com.mati_tech.dca.dcanew.remoteApi.cryptodata.CryptoResponse
-import com.mati_tech.dca.dcanew.remoteApi.repos.PositionRepos
-import com.mati_tech.dca.dcanew.remoteApi.repos.UserRepos
-import com.mati_tech.dca.dcanew.ui.activities.OngoingPositions
-import com.mati_tech.dca.dcanew.ui.activities.UserProfile
+import com.mati_tech.dca.dcanew.remoteApi.repos.old.PositionRepos
+import com.mati_tech.dca.dcanew.remoteApi.repos.UserReposRemote
 import com.mati_tech.dca.dcanew.ui.activities.activitiesUI.AuthActivityUI
-import com.mati_tech.dca.dcanew.ui.activities.activitiesUI.MainActivityUI
 import com.mati_tech.dca.dcanew.utils.PositionAdapter
 import com.mati_tech.dca.dcanew.viewmodel.PositionViewModel
 import com.mati_tech.dca.dcanew.viewmodel.PositionViewModelFactory
@@ -61,6 +58,7 @@ class FragmentHome : Fragment() {
     private var xrpPrice : Double = 0.0
     private var aptPrice : Double = 0.0
     private var enaPrice: Double = 0.0
+    private var isAmountMode = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,7 +88,7 @@ class FragmentHome : Fragment() {
             // This can be where you set up your main UI or dashboard
         }
 
-        val repos = UserRepos(ApiClient.userApiService)
+        val repos = UserReposRemote(ApiClient.userApiService)
         val factory = UserViewModelFactory(repos)
         userviewModel = ViewModelProvider(this, factory)[UserViewModel::class.java]
 
@@ -170,28 +168,23 @@ class FragmentHome : Fragment() {
         }
         viewModel.fetchTotalInvested()
         setupSpinner()
-        setupInputListeners()
+
+        setupToggleButton()
         updateCurrentValue()
-//        binding.btnAddPosition.setOnClickListener {
-//            addPosition()
-//        }
-//        binding.historyButton.setOnClickListener{
-//            val intent = Intent(this, PositionHistory::class.java)
-//
-//            startActivity(intent)
-//        }
+
         binding.btnCurrentPositions.setOnClickListener {
-            val intent = Intent(requireContext(), OngoingPositions::class.java)
-            startActivity(intent)
+            it.findNavController().navigate(R.id.action_fragmentHome_to_fragmentPositions)
         }
-        binding.btnCurrentPositions.setOnLongClickListener {
-            val intent = Intent(requireContext(), MainActivityUI::class.java)
-            startActivity(intent)
-            true
-        }
+
         binding.profileIcon.setOnClickListener {
-            val intent = Intent(requireContext(), UserProfile::class.java)
-            startActivity(intent)
+            it.findNavController().navigate(R.id.action_fragmentHome_to_fragmentProfile)
+        }
+        binding.historyButton.setOnClickListener{
+            it.findNavController().navigate(R.id.action_fragmentHome_to_fragmentHistory)
+        }
+
+        binding.btnAddPosition.setOnClickListener {
+            addPosition()
         }
     }
 
@@ -276,52 +269,55 @@ class FragmentHome : Fragment() {
 
     }
 
-    private fun setupInputListeners() {
-
-        binding.ValueinUSD.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                calculateamountCoin()
+    private fun setupToggleButton() {
+        binding.exchangeButtonHomeFragment.setOnClickListener {
+            isAmountMode = !isAmountMode
+            if (isAmountMode) {
+                binding.amountLayout.visibility = View.VISIBLE
+                binding.valueLayout.visibility = View.GONE
+            } else {
+                binding.amountLayout.visibility = View.GONE
+                binding.valueLayout.visibility = View.VISIBLE
             }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
-
-        binding.BuyPrice.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                calculateamountCoin()
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
-
-    }
-
-    private fun calculateamountCoin() {
-        val buyPrice = binding.BuyPrice.text.toString().toDoubleOrNull() ?: 0.0
-        val ValueUsd = binding.ValueinUSD.text.toString().toDoubleOrNull() ?: 0.0
-        if (buyPrice > 0 && ValueUsd > 0) {
-            binding.AmountinCoin.setText(String.format("%.4f", ValueUsd / buyPrice))
-        } else {
+            // Optional: clear the now-hidden field
             binding.AmountinCoin.text.clear()
+            binding.ValueinUSD.text.clear()
         }
     }
+
 
     private fun addPosition() {
         val coin = binding.coinNameSpinner.selectedItem.toString()
         val buyPrice = binding.BuyPrice.text.toString().toDoubleOrNull() ?: return
-        val amount = binding.AmountinCoin.text.toString().toDoubleOrNull() ?: return
-        val valueinusd = binding.ValueinUSD.text.toString().toDoubleOrNull() ?: return
-        val position =
-            PositionEntity(coin = coin, buyPrice = buyPrice, amount = amount, valueUsd = valueinusd)
+
+        val isAmountVisible = binding.amountLayout.visibility == View.VISIBLE
+        val amount: Double
+        val valueUsd: Double
+
+        if (isAmountVisible) {
+            amount = binding.AmountinCoin.text.toString().toDoubleOrNull() ?: return
+            valueUsd = amount * buyPrice
+        } else {
+            valueUsd = binding.ValueinUSD.text.toString().toDoubleOrNull() ?: return
+            amount = String.format("%.4f", valueUsd / buyPrice).toDouble()
+        }
+
+        val position = PositionEntity(
+            coin = coin,
+            buyPrice = buyPrice,
+            amount = amount,
+            valueUsd = valueUsd
+        )
+
         viewModel.addPosition(position)
         viewModel.fetchTotalInvested()
+
+        // Clear all fields
         binding.BuyPrice.text.clear()
         binding.AmountinCoin.text.clear()
         binding.ValueinUSD.text.clear()
-
     }
+
     override fun onResume() {
         super.onResume()
         val cryptoList = listOf("BTCUSDT", "ETHUSDT", "LTCUSDT", "ADAUSDT", "XRPUSDT", "DOTUSDT", "SOLUSDT", "AVAXUSDT", "ARBUSDT", "APTUSDT", "ENAUSDT")

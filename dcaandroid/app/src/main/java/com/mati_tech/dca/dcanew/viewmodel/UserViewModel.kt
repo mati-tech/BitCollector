@@ -3,10 +3,10 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.mati_tech.dca.dcanew.remoteApi.models.User
 import com.mati_tech.dca.dcanew.remoteApi.models.UserLoginRequest
-import com.mati_tech.dca.dcanew.remoteApi.repos.UserRepos
+import com.mati_tech.dca.dcanew.remoteApi.repos.UserReposRemote
 import kotlinx.coroutines.launch
 
-class UserViewModel(private val repository: UserRepos) : ViewModel() {
+class UserViewModel(private val repository: UserReposRemote) : ViewModel() {
 
     private val _allUsers = MutableLiveData<List<User>?>()
     val allUsers: LiveData<List<User>?> get() = _allUsers

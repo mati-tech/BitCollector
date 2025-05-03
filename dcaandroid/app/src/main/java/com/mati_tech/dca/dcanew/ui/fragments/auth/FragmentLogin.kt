@@ -9,21 +9,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.mati_tech.dca.R
 import com.mati_tech.dca.databinding.FragmentLoginBinding
 import com.mati_tech.dca.dcanew.remoteApi.client.ApiClient
-import com.mati_tech.dca.dcanew.remoteApi.models.User
 import com.mati_tech.dca.dcanew.remoteApi.models.UserLoginRequest
-import com.mati_tech.dca.dcanew.remoteApi.repos.UserRepos
-import com.mati_tech.dca.dcanew.remoteApi.services.UserApiService
+import com.mati_tech.dca.dcanew.remoteApi.repos.UserReposRemote
 import com.mati_tech.dca.dcanew.ui.activities.activitiesUI.MainActivityUI
 import com.mati_tech.dca.dcanew.viewmodel.UserViewModel
 import com.mati_tech.dca.dcanew.viewmodel.UserViewModelFactory
-import kotlinx.coroutines.MainScope
 
 class FragmentLogin : Fragment() {
     private lateinit var binding: FragmentLoginBinding
@@ -41,7 +37,7 @@ class FragmentLogin : Fragment() {
     ): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false )
 
-        val repos = UserRepos(ApiClient.userApiService)
+        val repos = UserReposRemote(ApiClient.userApiService)
         val factory = UserViewModelFactory(repos)
         viewModel = ViewModelProvider(this, factory)[UserViewModel::class.java]
 
@@ -52,6 +48,17 @@ class FragmentLogin : Fragment() {
 override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+
+
+    // ✅ Check if token already exists
+    val token = sharedPreferences.getString("AUTH_TOKEN", null)
+    if (!token.isNullOrEmpty()) {
+        // User is already logged in, redirect to main activity
+        val intent = Intent(requireContext(), MainActivityUI::class.java)
+        startActivity(intent)
+        requireActivity().finish()
+        return  // Prevent further execution
+    }
 
     val progressBar = binding.loginProgressBar
 

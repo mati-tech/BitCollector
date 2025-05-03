@@ -8,16 +8,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
-import com.mati_tech.dca.R
 import com.mati_tech.dca.databinding.FragmentProfileBinding
 import com.mati_tech.dca.dcanew.remoteApi.client.ApiClient
-import com.mati_tech.dca.dcanew.remoteApi.repos.UserRepos
+import com.mati_tech.dca.dcanew.remoteApi.repos.UserReposRemote
 import com.mati_tech.dca.dcanew.viewmodel.UserViewModel
 import com.mati_tech.dca.dcanew.viewmodel.UserViewModelFactory
 
@@ -35,7 +33,7 @@ class FragmentProfile : Fragment() {
     ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         // Inflate the layout for this fragment
-        val repos = UserRepos(ApiClient.userApiService)
+        val repos = UserReposRemote(ApiClient.userApiService)
         val factory = UserViewModelFactory(repos)
         viewModel = ViewModelProvider(this, factory)[UserViewModel::class.java]
         return binding.root
@@ -65,7 +63,7 @@ class FragmentProfile : Fragment() {
         balanceTextView.text = "$${String.format("%.2f", balance)}"
         userEmailTextView.text = "Email: $email"
         userUIDTextView.text = "UID: $uid"
-        userFullNameTextView.text = "Full Name: $fullname"
+        userFullNameTextView.text = "Name: $fullname"
 
 
 

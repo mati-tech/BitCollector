@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.fragments.settings.SettingTheme">
+    tools:context=".dcanew.ui.fragments.settings.FragmentTheme">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:layout_gravity="start"
             android:layout_width="9.5dp"
             android:layout_weight="1"
-            android:layout_height="match_parent"
+            android:layout_height="20dp"
             android:src="@drawable/a6_main_back_arrow" />
 
         <TextView
@@ -29,7 +29,7 @@
             android:textSize="18sp"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="@string/Lightdarktheme" />
+            android:text="Theme" />
 
     </LinearLayout>
 
@@ -48,10 +48,12 @@
         <TextView
             android:id="@+id/SettingTheme_dark_theme_text"
             android:layout_width="205dp"
-            android:layout_height="22dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="start"
+            android:paddingLeft="25dp"
             android:layout_weight="10"
-            android:text="@string/dark"
+            android:text="Dark mode"
+
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -77,10 +79,11 @@
         <TextView
             android:id="@+id/SettingTheme_light_theme_text"
             android:layout_width="205dp"
-            android:layout_height="22dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="start"
+            android:paddingLeft="25dp"
             android:layout_weight="10"
-            android:text="@string/lighttheme"
+            android:text="Light mode"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -108,6 +111,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.02" >

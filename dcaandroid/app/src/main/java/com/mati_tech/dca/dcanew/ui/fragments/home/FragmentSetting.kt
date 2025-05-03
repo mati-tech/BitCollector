@@ -40,21 +40,32 @@ class FragmentSetting : Fragment() {
             //add a qr code scanner for the telegram acccount, and the instagram
             showTelegramQRDialog()
         }
+        binding.SettingToInstaLogo.setOnClickListener{
+            //add a qr code scanner for the telegram acccount, and the instagram
+            showIGQRDialog()
+        }
         binding.SettingToDeleteAccount.setOnClickListener{
             it.findNavController().navigate(R.id.action_fragmentSetting_to_fragmentDeleteAccount)
         }
         binding.SettingFragmentSignoutBtn.setOnClickListener{
 
             signOut()
-//            var intent = Intent (context, AuthActivityUI::class.java)
 
-            // here to go to the other activity to a certain fragment
-//            intent.putExtra("navigate_to", "login")
-//            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//            startActivity(intent)
-//            requireActivity().finish()
         }
         return binding.root
+    }
+
+    private fun showIGQRDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.dialogeiglogo, null)
+
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .setCancelable(true)
+            .create()
+
+        dialogView.findViewById<ImageView>(R.id.qrCodeImageViewa).setImageResource(R.drawable.ig)
+
+        dialog.show()
     }
 
     private fun showTelegramQRDialog() {
